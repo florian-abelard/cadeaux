@@ -64,5 +64,5 @@ jobs:
           key: ${{ secrets.SERVER_PRODUCTION_SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PRODUCTION_REMOTE_PORT }}
           script: |
-            cd ${{ env.DEPLOY_DESTINATION_FOLDER }}
-            make cache-clear
+            cd ${{ env.DEPLOY_DESTINATION_FOLDER }}/application
+            php bin/console cache:clear --env=prod
