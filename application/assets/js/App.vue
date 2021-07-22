@@ -90,6 +90,7 @@
                     :showMainFilter="showMainFilter"
                     :submitForm="submitForm"
                     v-on:formValidated="onFormValidated"
+                    v-on:formValidationError="onFormValidationError"
                     v-on:formCreated="onFormCreated"
                     v-on:showMainFilterUpdated="onShowMainFilterUpdated"
                 ></router-view>
@@ -115,8 +116,11 @@
             submitForm: false
         }),
         methods: {
-            onFormValidated() {
-                this.editing = false;
+            onFormValidated(error = false) {
+                console.log('onFormValidated');
+                if (!error) {
+                    this.editing = false;
+                }
                 this.submitForm = false;
             },
             onFormCreated() {

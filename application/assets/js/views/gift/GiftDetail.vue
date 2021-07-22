@@ -91,7 +91,6 @@
             submitForm: function () {
                 if (this.submitForm) {
                     this.onSubmit();
-                    this.$emit('formValidated');
                 }
             }
         },
@@ -160,11 +159,17 @@
                 })
                 .then( response => {
                     if (!response.ok) throw response;
+
                     this.notify('success', 'Le cadeau a bien été créé');
+                    this.$emit('formValidated');
+
+                    this.$router.push({ name: 'giftList' });
                 })
                 .catch( (error) => {
                     console.log(error);
+
                     this.notify('error', 'Impossible de créer le cadeau');
+                    this.$emit('formValidated', true);
                 });
             },
             update()
@@ -185,12 +190,16 @@
                     })
                     .then( response => {
                         if (!response.ok) throw response;
+
                         this.notify('success', 'Le cadeau a bien été modifié');
+                        this.$emit('formValidated');
                     })
-                .catch( (error) => {
-                    console.log(error);
-                    this.notify('error', 'Impossible de modifier le cadeau');
-                });
+                    .catch( (error) => {
+                        console.log(error);
+
+                        this.notify('error', 'Impossible de modifier le cadeau');
+                        this.$emit('formValidated', true);
+                    });
                 ;
             },
         }

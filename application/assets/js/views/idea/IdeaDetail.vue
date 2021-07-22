@@ -111,8 +111,8 @@
         watch: {
             submitForm: function () {
                 if (this.submitForm) {
+                    console.log('submitForm');
                     this.onSubmit();
-                    this.$emit('formValidated');
                 }
             }
         },
@@ -183,11 +183,15 @@
                     if (!response.ok) throw response;
 
                     this.notify('success', "L'idée cadeau a bien été créée");
+                    this.$emit('formValidated');
+
                     this.$router.push({ name: 'ideaList' });
                 })
                 .catch( (error) => {
-                    this.notify('error', "Impossible de créer l'idée cadeau");
                     console.log(error);
+
+                    this.notify('error', "Impossible de créer l'idée cadeau");
+                    this.$emit('formValidated', true);
                 });
             },
             update()
@@ -208,11 +212,13 @@
                         if (!response.ok) throw response;
 
                         this.notify('success', "L'idée cadeau a bien été modifiée");
-                        this.$router.push({ name: 'ideaList' });
+                        this.$emit('formValidated');
                     })
                     .catch( (error) => {
                         console.log(error);
+
                         this.notify('error', "Impossible de modifier l'idée cadeau");
+                        this.$emit('formValidated', true);
                     });
                 ;
             },
