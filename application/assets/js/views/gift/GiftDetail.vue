@@ -77,7 +77,7 @@
                     price: {}
                 },
                 recipients: [],
-                loading: true,
+                loading: false,
             };
         },
         created() {
@@ -91,12 +91,13 @@
             submitForm: function () {
                 if (this.submitForm) {
                     this.onSubmit();
-                    this.$emit('formValidated');
                 }
             }
         },
         methods: {
             fetchGift(id) {
+                this.loading = true;
+
                 fetch('/api/gifts/' + id)
                     .then( response => {
                         if (!response.ok) throw response;
@@ -158,17 +159,23 @@
                 })
                 .then( response => {
                     if (!response.ok) throw response;
+
                     this.notify('success', 'Le cadeau a bien été créé');
+                    this.$emit('formValidated');
+
+                    this.$router.push({ name: 'giftList' });
                 })
                 .catch( (error) => {
                     console.log(error);
+
                     this.notify('error', 'Impossible de créer le cadeau');
+                    this.$emit('formValidated', true);
                 });
             },
             update()
             {
                 const gift = this.gift;
-                console.log(gift);
+
                 fetch('/api/gifts/' + gift.id, {
                         method: 'PUT',
                         headers: {'Content-Type': 'application/ld+json'},
@@ -183,12 +190,16 @@
                     })
                     .then( response => {
                         if (!response.ok) throw response;
+
                         this.notify('success', 'Le cadeau a bien été modifié');
+                        this.$emit('formValidated');
                     })
-                .catch( (error) => {
-                    console.log(error);
-                    this.notify('error', 'Impossible de modifier le cadeau');
-                });
+                    .catch( (error) => {
+                        console.log(error);
+
+                        this.notify('error', 'Impossible de modifier le cadeau');
+                        this.$emit('formValidated', true);
+                    });
                 ;
             },
         }
