@@ -77,7 +77,7 @@
                     price: {}
                 },
                 recipients: [],
-                loading: true,
+                loading: false,
             };
         },
         created() {
@@ -97,6 +97,8 @@
         },
         methods: {
             fetchGift(id) {
+                this.loading = true;
+
                 fetch('/api/gifts/' + id)
                     .then( response => {
                         if (!response.ok) throw response;
@@ -168,7 +170,7 @@
             update()
             {
                 const gift = this.gift;
-                console.log(gift);
+
                 fetch('/api/gifts/' + gift.id, {
                         method: 'PUT',
                         headers: {'Content-Type': 'application/ld+json'},

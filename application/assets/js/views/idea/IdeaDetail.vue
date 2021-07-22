@@ -98,7 +98,7 @@
                     eventYear: ''
                 },
                 showCreateGiftDialog: false,
-                loading: true,
+                loading: false,
             };
         },
         created() {
@@ -118,6 +118,8 @@
         },
         methods: {
             fetchIdea(id) {
+                this.loading = true;
+
                 fetch('/api/ideas/' + id)
                     .then( response => {
                         if (!response.ok) throw response;

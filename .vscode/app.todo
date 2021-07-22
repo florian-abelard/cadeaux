@@ -12,9 +12,10 @@ features :
     - Gestion des erreurs front (catch erreur via listener ?)
 
 issues :
-    - fix: db-system-init @pending
+    - Commandes post déploiements en production
     - Active classe sur les boutons du menu (tout désactivé actuellement)
     - make cache-clear sur env de prod
+    - fix: db-system-init @pending
 
 refactor :
     - merger création et édition @high
