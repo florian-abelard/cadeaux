@@ -79,6 +79,12 @@
 
                     </v-list>
 
+                    <v-divider></v-divider>
+
+                    <a href="#" @click="logout">
+                        Déconnexion
+                    </a>
+
                 </div>
 
             </v-navigation-drawer>
@@ -89,8 +95,8 @@
                     :editing="editing"
                     :showMainFilter="showMainFilter"
                     :submitForm="submitForm"
+                    v-on:authenticationSuccess="onAuthenticationSuccess"
                     v-on:formValidated="onFormValidated"
-                    v-on:formValidationError="onFormValidationError"
                     v-on:formCreated="onFormCreated"
                     v-on:showMainFilterUpdated="onShowMainFilterUpdated"
                 ></router-view>
@@ -110,12 +116,19 @@
     export default {
         name: "App",
         data: () => ({
+            authenticated: false,
             showMenu: false,
             showMainFilter: false,
             editing: false,
             submitForm: false
         }),
+        mounted() {
+            this.authenticated = window.authenticated;
+        },
         methods: {
+            onAuthenticationSuccess() {
+                this.authenticated = true;
+            },
             onFormValidated(error = false) {
                 console.log('onFormValidated');
                 if (!error) {
@@ -163,7 +176,24 @@
                 if (this.$route.name.startsWith('gift')) {
                     return 'Cadeaux';
                 }
-            }
+            },
+            logout()
+            {
+                fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                })
+                .then( response => {
+                    if (!response.ok) throw response;
+
+                    this.notify('success', 'Déconnexion réussie');
+                })
+                .catch( (error) => {
+                    console.log(error);
+
+                    this.notify('error', 'Déconnexion impossible');
+                });
+            },
         },
     };
 
