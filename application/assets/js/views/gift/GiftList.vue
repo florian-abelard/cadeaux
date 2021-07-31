@@ -125,8 +125,9 @@
 
 <script>
 
-    import filterMixin from '../../mixins/filterMixin.js'
-    import ListSkeletonLoader from '../../components/loaders/ListSkeletonLoader.vue'
+    import axios from 'axios';
+    import filterMixin from '../../mixins/filterMixin.js';
+    import ListSkeletonLoader from '../../components/loaders/ListSkeletonLoader.vue';
 
     export default {
         name: "GiftList",
@@ -179,65 +180,52 @@
 
                 url += params ? '?' + params : '';
 
-                fetch(url)
-                    .then( response => {
-                        if (!response.ok) throw response;
-                        return response.json();
-                    })
-                    .then( (data) => {
-                        this.gifts = data['hydra:member'];
-                    })
-                    .catch( (error) => {
-                        console.log(error);
-                        this.notify('error', "Impossible de récupérer les cadeaux");
-                    })
-                    .finally( () => {
-                        this.loading = false;
-                    })
-                ;
+                axios.get(url)
+                .then( response => {
+                    this.gifts = response.data['hydra:member'];
+                })
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
+                    this.notify('error', "Impossible de récupérer les cadeaux");
+                })
+                .finally( () => {
+                    this.loading = false;
+                });
             },
             fetchGroups()
             {
-                fetch('/api/groups')
+                axios.get('/api/groups')
                 .then( response => {
-                    if (!response.ok) throw response;
-                    return response.json();
+                    this.groups = response.data['hydra:member'];
                 })
-                .then( (data) => {
-                    this.groups = data['hydra:member'];
-                })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
                     this.notify('error', "Impossible de récupérer les groupes");
                 });
             },
             fetchRecipients()
             {
-                fetch('/api/recipients')
+                axios.get('/api/recipients')
                 .then( response => {
-                    if (!response.ok) throw response;
-                    return response.json();
+                    this.recipients = response.data['hydra:member'];
                 })
-                .then( (data) => {
-                    this.recipients = data['hydra:member'];
-                })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
                     this.notify('error', "Impossible de récupérer les destinataires");
                 });
             },
             deleteGift(id) {
-                fetch('/api/gifts/' + id, {
-                    method: 'DELETE'
-                })
-                .then( response => {
-                    if (!response.ok) throw response;
-
+                axios.delete('/api/gifts/' + id)
+                .then( () => {
                     this.fetchGifts();
                     this.notify('success', "Le cadeau a bien été supprimé");
                 })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
                     this.notify('error', "Impossible de supprimer le cadeau");
                 });
             },

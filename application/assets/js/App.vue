@@ -113,6 +113,8 @@
 
 <script>
 
+    import axios from 'axios';
+
     export default {
         name: "App",
         data: () => ({
@@ -124,13 +126,16 @@
         }),
         mounted() {
             this.authenticated = window.authenticated;
+
+            if (!this.authenticated && this.$route.name !== 'login') {
+                this.$router.push({ name: 'login' });
+            }
         },
         methods: {
             onAuthenticationSuccess() {
                 this.authenticated = true;
             },
             onFormValidated(error = false) {
-                console.log('onFormValidated');
                 if (!error) {
                     this.editing = false;
                 }
@@ -179,17 +184,18 @@
             },
             logout()
             {
-                fetch('/api/logout', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                })
-                .then( response => {
-                    if (!response.ok) throw response;
-
+                axios.post(
+                    '/api/logout',
+                    '',
+                    {
+                        headers: {'Content-Type': 'application/json'},
+                    }
+                )
+                .then( () => {
                     this.notify('success', 'Déconnexion réussie');
                 })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
 
                     this.notify('error', 'Déconnexion impossible');
                 });

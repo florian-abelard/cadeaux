@@ -4,7 +4,7 @@
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
  */
-
+import axios from 'axios';
 import Vue from 'vue';
 import Notifications from 'vue-notification';
 
@@ -25,6 +25,17 @@ new Vue({
     components: { App },
     template: "<App/>",
     router,
-    vuetify
+    vuetify,
 });
 
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        const currentRoute = router.history.current.name;
+        if (error.response.status === 401 && currentRoute !== 'login') {
+            router.push({ name: 'login' });
+        }
+
+        return Promise.reject(error);
+    }
+);

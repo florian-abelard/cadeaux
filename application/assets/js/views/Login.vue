@@ -42,6 +42,8 @@
 
 <script>
 
+    import axios from 'axios';
+
     export default {
         name: "Login",
         props: {
@@ -58,22 +60,21 @@
         methods: {
             onSubmit()
             {
-                fetch('/api/login', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
+                axios.post(
+                    '/api/login',
+                    JSON.stringify({
                         user: this.user,
                         password: this.password,
                     })
-                })
-                .then( response => {
-                    if (!response.ok) throw response;
-
+                )
+                .then( () => {
                     this.$emit('authenticationSuccess');
                     this.notify('success', 'Authentification réussie');
+
+                    this.$router.push({ name: 'home' });
                 })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
 
                     this.notify('error', 'Authentification impossible');
                 });
