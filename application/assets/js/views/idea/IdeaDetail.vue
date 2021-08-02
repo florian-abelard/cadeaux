@@ -74,7 +74,6 @@
 
 <script>
 
-    import axios from 'axios';
     import CreateGiftFromIdea from '../../components/CreateGiftFromIdea.vue';
     import FormSkeletonLoader from '../../components/loaders/FormSkeletonLoader.vue'
 
@@ -121,7 +120,7 @@
             fetchIdea(id) {
                 this.loading = true;
 
-                axios.get('/api/ideas/' + id)
+                this.$http.get('/api/ideas/' + id)
                     .then( response => {
                         this.idea = response.data;
                         this.idea.recipientsUri = this.idea.recipients.map( element => element['@id'] );
@@ -142,7 +141,7 @@
             },
             fetchRecipients()
             {
-                axios.get('/api/recipients')
+                this.$http.get('/api/recipients')
                 .then( response => {
                     this.recipients = response.data['hydra:member'];
                 })
@@ -162,7 +161,7 @@
             {
                 const idea = this.idea;
 
-                axios.post(
+                this.$http.post(
                     '/api/ideas',
                     JSON.stringify({
                         label: idea.label,
@@ -192,7 +191,7 @@
             {
                 const idea = this.idea;
 
-                axios.post(
+                this.$http.post(
                     '/api/ideas',
                     JSON.stringify({
                         label: idea.label,
@@ -218,7 +217,7 @@
             },
             createGift(gift)
             {
-                axios.post(
+                this.$http.post(
                     '/api/gifts/from_idea',
                     JSON.stringify({
                         idea: this.idea['@id'],

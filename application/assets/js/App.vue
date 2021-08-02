@@ -113,8 +113,6 @@
 
 <script>
 
-    import axios from 'axios';
-
     export default {
         name: "App",
         data: () => ({
@@ -184,7 +182,7 @@
             },
             logout()
             {
-                axios.post(
+                this.$http.post(
                     '/api/logout',
                     '',
                     {

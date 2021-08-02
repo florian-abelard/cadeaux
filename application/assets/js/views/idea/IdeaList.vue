@@ -116,7 +116,6 @@
 
 <script>
 
-    import axios from 'axios';
     import filterMixin from '../../mixins/filterMixin.js'
     import ListSkeletonLoader from '../../components/loaders/ListSkeletonLoader.vue'
 
@@ -169,7 +168,7 @@
 
                 url += params ? '?' + params : '';
 
-                axios.get(url)
+                this.$http.get(url)
                 .then( response => {
                     this.ideas = response.data['hydra:member'];
                 })
@@ -184,7 +183,7 @@
             },
             fetchGroups()
             {
-                axios.get('/api/groups')
+                this.$http.get('/api/groups')
                 .then( response => {
                     this.groups = response.data['hydra:member'];
                 })
@@ -196,7 +195,7 @@
             },
             fetchRecipients()
             {
-                axios.get('/api/recipients')
+                this.$http.get('/api/recipients')
                 .then( response => {
                     this.recipients = response.data['hydra:member'];
                 })
@@ -207,7 +206,7 @@
                 });
             },
             deleteIdea(id) {
-                axios.delete('/api/ideas/' + id)
+                this.$http.delete('/api/ideas/' + id)
                 .then( () => {
                     this.fetchIdeas();
                     this.notify('success', "L'idée cadeau a bien été supprimée");

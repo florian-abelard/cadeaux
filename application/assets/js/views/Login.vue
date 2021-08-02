@@ -42,8 +42,6 @@
 
 <script>
 
-    import axios from 'axios';
-
     export default {
         name: "Login",
         props: {
@@ -60,7 +58,7 @@
         methods: {
             onSubmit()
             {
-                axios.post(
+                this.$http.post(
                     '/api/login',
                     JSON.stringify({
                         user: this.user,

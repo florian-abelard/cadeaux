@@ -17,6 +17,8 @@ import router from "./router";
 import '@mdi/font/css/materialdesignicons.min.css';
 import '../css/app.scss';
 
+
+Vue.prototype.$http = axios;
 Vue.use(Notifications);
 Vue.mixin(NotificationMixin);
 

@@ -60,7 +60,6 @@
 
 <script>
 
-    import axios from 'axios';
     import FormSkeletonLoader from '../../components/loaders/FormSkeletonLoader.vue';
 
     export default {
@@ -99,7 +98,7 @@
             fetchGift(id) {
                 this.loading = true;
 
-                axios.get('/api/gifts/' + id)
+                this.$http.get('/api/gifts/' + id)
                     .then( response => {
                         this.gift = response.data;
                         this.gift.recipientsUri = this.gift.recipients.map( element => element['@id'] );
@@ -120,7 +119,7 @@
             },
             fetchRecipients()
             {
-                axios.get('/api/recipients')
+                this.$http.get('/api/recipients')
                 .then( response => {
                     this.recipients = response.data['hydra:member'];
                 })
@@ -140,7 +139,7 @@
             {
                 const gift = this.gift;
 
-                axios.post(
+                this.$http.post(
                     '/api/gifts',
                     JSON.stringify({
                         label: gift.label,
@@ -171,7 +170,7 @@
             {
                 const gift = this.gift;
 
-                axios.put(
+                this.$http.put(
                     '/api/gifts/' + gift.id,
                     JSON.stringify({
                         label: gift.label,
