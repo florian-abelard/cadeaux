@@ -42,48 +42,47 @@
 
                         <v-list-item-group active-class="deep-green--text text--accent-4">
 
-                            <router-link to="/" tag="v-list-item">
-                                <v-list-item link>
-                                    <v-list-item-icon>
-                                        <v-icon>mdi-home</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title>Accueil</v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                            <router-link to="/" tag="v-list-item" link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-home</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>Accueil</v-list-item-title>
+                                </v-list-item-content>
                             </router-link>
 
-                            <router-link to="/ideas" tag="v-list-item">
-                                <v-list-item link>
-                                    <v-list-item-icon>
-                                        <v-icon>mdi-lightbulb-on-outline</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title>Idées cadeaux</v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                            <router-link to="/ideas" tag="v-list-item" link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-lightbulb-on-outline</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>Idées cadeaux</v-list-item-title>
+                                </v-list-item-content>
                             </router-link>
 
-                            <router-link to="/gifts" tag="v-list-item">
-                                <v-list-item link>
-                                    <v-list-item-icon>
-                                        <v-icon>mdi-gift-outline</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title>Cadeaux</v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                            <router-link to="/gifts" tag="v-list-item" link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-gift-outline</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>Cadeaux</v-list-item-title>
+                                </v-list-item-content>
                             </router-link>
+
+                            <v-divider class="my-3"></v-divider>
+
+                            <v-list-item link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-logout</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content @click="logout">
+                                    <v-list-item-title>Déconnexion</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
 
                         </v-list-item-group>
 
                     </v-list>
-
-                    <v-divider></v-divider>
-
-                    <a href="#" @click="logout">
-                        Déconnexion
-                    </a>
 
                 </div>
 
@@ -191,6 +190,8 @@
                 )
                 .then( () => {
                     this.notify('success', 'Déconnexion réussie');
+
+                    this.$router.push({ name: 'login' });
                 })
                 .catch( error => {
                     if (error.response.status === 401) return;
