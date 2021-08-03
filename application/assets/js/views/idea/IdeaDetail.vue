@@ -170,9 +170,6 @@
                             value: parseFloat(idea.price)
                         },
                     }),
-                    {
-                        headers: {'Content-Type': 'application/ld+json'},
-                    }
                 )
                 .then( () => {
                     this.notify('success', "L'idée cadeau a bien été créée");
@@ -200,9 +197,6 @@
                             value: parseFloat(idea.price)
                         },
                     }),
-                    {
-                        headers: {'Content-Type': 'application/ld+json'},
-                    }
                 )
                 .then( () => {
                     this.notify('success', "L'idée cadeau a bien été modifiée");
@@ -224,9 +218,6 @@
                         recipients: gift.recipientsUri,
                         eventYear: gift.eventYear,
                     }),
-                    {
-                        headers: {'Content-Type': 'application/ld+json'},
-                    }
                 )
                 .then( () => {
                     this.notify('success', "Le cadeau a bien été créé");

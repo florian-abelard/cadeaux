@@ -18,9 +18,13 @@ import '@mdi/font/css/materialdesignicons.min.css';
 import '../css/app.scss';
 
 
-Vue.prototype.$http = axios;
 Vue.use(Notifications);
 Vue.mixin(NotificationMixin);
+
+const myApiAxios = axios.create({
+    headers: { 'Content-Type': 'application/ld+json' }
+});
+Vue.prototype.$http = myApiAxios;
 
 new Vue({
     el: '#app',

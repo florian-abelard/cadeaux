@@ -149,9 +149,6 @@
                             value: parseFloat(gift.price)
                         },
                     }),
-                    {
-                        headers: {'Content-Type': 'application/ld+json'},
-                    }
                 )
                 .then( () => {
                     this.notify('success', 'Le cadeau a bien été créé');
@@ -180,9 +177,6 @@
                             value: parseFloat(gift.price.value)
                         },
                     }),
-                    {
-                        headers: {'Content-Type': 'application/ld+json'},
-                    }
                 )
                 .then( () => {
                     this.notify('success', 'Le cadeau a bien été modifié');
