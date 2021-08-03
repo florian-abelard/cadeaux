@@ -22,6 +22,10 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+
+            <script>
+                window.authenticated = {{ authenticated ? 'true' : 'false' }};
+            </script>
         {% endblock %}
 
     </body>

@@ -42,38 +42,43 @@
 
                         <v-list-item-group active-class="deep-green--text text--accent-4">
 
-                            <router-link to="/" tag="v-list-item">
-                                <v-list-item link>
-                                    <v-list-item-icon>
-                                        <v-icon>mdi-home</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title>Accueil</v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                            <router-link to="/" tag="v-list-item" link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-home</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>Accueil</v-list-item-title>
+                                </v-list-item-content>
                             </router-link>
 
-                            <router-link to="/ideas" tag="v-list-item">
-                                <v-list-item link>
-                                    <v-list-item-icon>
-                                        <v-icon>mdi-lightbulb-on-outline</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title>Idées cadeaux</v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                            <router-link to="/ideas" tag="v-list-item" link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-lightbulb-on-outline</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>Idées cadeaux</v-list-item-title>
+                                </v-list-item-content>
                             </router-link>
 
-                            <router-link to="/gifts" tag="v-list-item">
-                                <v-list-item link>
-                                    <v-list-item-icon>
-                                        <v-icon>mdi-gift-outline</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title>Cadeaux</v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                            <router-link to="/gifts" tag="v-list-item" link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-gift-outline</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>Cadeaux</v-list-item-title>
+                                </v-list-item-content>
                             </router-link>
+
+                            <v-divider class="my-3"></v-divider>
+
+                            <v-list-item link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-logout</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content @click="logout">
+                                    <v-list-item-title>Déconnexion</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
 
                         </v-list-item-group>
 
@@ -89,8 +94,8 @@
                     :editing="editing"
                     :showMainFilter="showMainFilter"
                     :submitForm="submitForm"
+                    v-on:authenticationSuccess="onAuthenticationSuccess"
                     v-on:formValidated="onFormValidated"
-                    v-on:formValidationError="onFormValidationError"
                     v-on:formCreated="onFormCreated"
                     v-on:showMainFilterUpdated="onShowMainFilterUpdated"
                 ></router-view>
@@ -110,14 +115,24 @@
     export default {
         name: "App",
         data: () => ({
+            authenticated: false,
             showMenu: false,
             showMainFilter: false,
             editing: false,
             submitForm: false
         }),
+        mounted() {
+            this.authenticated = window.authenticated;
+
+            if (!this.authenticated && this.$route.name !== 'login') {
+                this.$router.push({ name: 'login' });
+            }
+        },
         methods: {
+            onAuthenticationSuccess() {
+                this.authenticated = true;
+            },
             onFormValidated(error = false) {
-                console.log('onFormValidated');
                 if (!error) {
                     this.editing = false;
                 }
@@ -163,7 +178,27 @@
                 if (this.$route.name.startsWith('gift')) {
                     return 'Cadeaux';
                 }
-            }
+            },
+            logout()
+            {
+                this.$http.post(
+                    '/api/logout',
+                    '',
+                    {
+                        headers: {'Content-Type': 'application/json'},
+                    }
+                )
+                .then( () => {
+                    this.notify('success', 'Déconnexion réussie');
+
+                    this.$router.push({ name: 'login' });
+                })
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
+                    this.notify('error', 'Déconnexion impossible');
+                });
+            },
         },
     };
 

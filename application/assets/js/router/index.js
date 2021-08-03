@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home";
+import Login from "../views/Login";
 import IdeaList from "../views/idea/IdeaList";
 import IdeaDetail from "../views/idea/IdeaDetail";
 import GiftList from "../views/gift/GiftList";
@@ -11,7 +12,16 @@ Vue.use(VueRouter);
 export default new VueRouter({
     mode: "history",
     routes: [
-        { path: "/", name: 'home', component: Home },
+        {
+            path: "/",
+            name: 'home',
+            component: Home,
+        },
+        {
+            path: "/login",
+            name: 'login',
+            component: Login,
+        },
         {
             path: "/ideas",
             name: 'ideaList',

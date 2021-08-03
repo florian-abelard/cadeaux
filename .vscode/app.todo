@@ -1,8 +1,7 @@
 
 features :
-    - Créer les migrations de données pour initialiser la prod
-    - Revoir le fixtures idea / gift en dev
     - Mise en place authentification
+    - Revoir le fixtures idea / gift en dev
     - Ajouter les asserts côté API
     - Icones "fermer" quand les menus sont ouverts
     - Homogénéiser les boutons (primary, secondary, ...)

@@ -4,7 +4,7 @@
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
  */
-
+import axios from 'axios';
 import Vue from 'vue';
 import Notifications from 'vue-notification';
 
@@ -17,14 +17,31 @@ import router from "./router";
 import '@mdi/font/css/materialdesignicons.min.css';
 import '../css/app.scss';
 
+
 Vue.use(Notifications);
 Vue.mixin(NotificationMixin);
+
+const myApiAxios = axios.create({
+    headers: { 'Content-Type': 'application/ld+json' }
+});
+Vue.prototype.$http = myApiAxios;
 
 new Vue({
     el: '#app',
     components: { App },
     template: "<App/>",
     router,
-    vuetify
+    vuetify,
 });
 
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        const currentRoute = router.history.current.name;
+        if (error.response.status === 401 && currentRoute !== 'login') {
+            router.push({ name: 'login' });
+        }
+
+        return Promise.reject(error);
+    }
+);
