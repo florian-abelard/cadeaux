@@ -72,13 +72,13 @@
 
                     <v-list-item :key="idea.id" :style="{ cursor: 'pointer' }">
 
-                        <router-link v-bind:to="'/ideas/' + idea.id" v-slot="{ href, route, navigate }">
+                        <router-link v-bind:to="'/ideas/' + idea.id" v-slot="{ href, navigate }" :disabled="showFilter">
                             <v-list-item-content :href="href" v-on:click="navigate">
 
                                 <v-list-item-title v-text="idea.label"></v-list-item-title>
 
                                 <v-list-item-subtitle v-if="idea.recipients.length > 0">
-                                    <v-chip v-for="recipient in idea.recipients"  v-bind:key="recipient.id" small>
+                                    <v-chip v-for="recipient in idea.recipients" v-bind:key="recipient.id" small>
                                         {{ recipient.name }}
                                     </v-chip>
                                 </v-list-item-subtitle>
