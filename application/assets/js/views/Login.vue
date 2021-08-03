@@ -63,7 +63,10 @@
                     JSON.stringify({
                         user: this.user,
                         password: this.password,
-                    })
+                    }),
+                    {
+                        headers: {'Content-Type': 'application/json'},
+                    }
                 )
                 .then( () => {
                     this.$emit('authenticationSuccess');
