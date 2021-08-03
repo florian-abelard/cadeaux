@@ -72,13 +72,13 @@
 
                     <v-list-item :key="idea.id" :style="{ cursor: 'pointer' }">
 
-                        <router-link v-bind:to="'/ideas/' + idea.id" v-slot="{ href, route, navigate }">
+                        <router-link v-bind:to="'/ideas/' + idea.id" v-slot="{ href, navigate }" :disabled="showFilter">
                             <v-list-item-content :href="href" v-on:click="navigate">
 
                                 <v-list-item-title v-text="idea.label"></v-list-item-title>
 
                                 <v-list-item-subtitle v-if="idea.recipients.length > 0">
-                                    <v-chip v-for="recipient in idea.recipients"  v-bind:key="recipient.id" small>
+                                    <v-chip v-for="recipient in idea.recipients" v-bind:key="recipient.id" small>
                                         {{ recipient.name }}
                                     </v-chip>
                                 </v-list-item-subtitle>
@@ -168,65 +168,52 @@
 
                 url += params ? '?' + params : '';
 
-                fetch(url)
-                    .then( response => {
-                        if (!response.ok) throw response;
-                        return response.json();
-                    })
-                    .then( (data) => {
-                        this.ideas = data['hydra:member'];
-                    })
-                    .catch( (error) => {
-                        console.log(error);
-                        this.notify('error', "Impossible de récupérer les idées cadeaux");
-                    })
-                    .finally( () => {
-                        this.loading = false;
-                    })
-                ;
+                this.$http.get(url)
+                .then( response => {
+                    this.ideas = response.data['hydra:member'];
+                })
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
+                    this.notify('error', "Impossible de récupérer les idées cadeaux");
+                })
+                .then( () => {
+                    this.loading = false;
+                });
             },
             fetchGroups()
             {
-                fetch('/api/groups')
+                this.$http.get('/api/groups')
                 .then( response => {
-                    if (!response.ok) throw response;
-                    return response.json();
+                    this.groups = response.data['hydra:member'];
                 })
-                .then( (data) => {
-                    this.groups = data['hydra:member'];
-                })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
                     this.notify('error', "Impossible de récupérer les groupes");
                 });
             },
             fetchRecipients()
             {
-                fetch('/api/recipients')
+                this.$http.get('/api/recipients')
                 .then( response => {
-                    if (!response.ok) throw response;
-                    return response.json();
+                    this.recipients = response.data['hydra:member'];
                 })
-                .then( (data) => {
-                    this.recipients = data['hydra:member'];
-                })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
                     this.notify('error', "Impossible de récupérer les groupes");
                 });
             },
             deleteIdea(id) {
-                fetch('/api/ideas/' + id, {
-                    method: 'DELETE'
-                })
-                .then( (response) => {
-                    if (!response.ok) throw response;
-
+                this.$http.delete('/api/ideas/' + id)
+                .then( () => {
                     this.fetchIdeas();
                     this.notify('success', "L'idée cadeau a bien été supprimée");
                 })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
                     this.notify('error', "Impossible de supprimer l'idée cadeau");
                 });
             },

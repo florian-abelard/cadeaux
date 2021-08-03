@@ -120,22 +120,18 @@
             fetchIdea(id) {
                 this.loading = true;
 
-                fetch('/api/ideas/' + id)
+                this.$http.get('/api/ideas/' + id)
                     .then( response => {
-                        if (!response.ok) throw response;
-
-                        return response.json();
-                    })
-                    .then( (data) => {
-                        this.idea = data;
+                        this.idea = response.data;
                         this.idea.recipientsUri = this.idea.recipients.map( element => element['@id'] );
                     })
-                    .catch( (error) => {
-                        if (error.status === 404) {
-                            this.notify('error', "L'idée cadeau n'a pas été trouvée");
-                        } else {
-                            this.notify('error', error.statusText);
-                        }
+                    .catch( error => {
+                        if (error.response.status === 401) return;
+
+                        error.status === 404
+                            ? this.notify('error', "L'idée cadeau n'a pas été trouvé")
+                            : this.notify('error', error.statusText);
+
                         this.$router.push({ name: 'home' });
                     })
                     .finally( () => {
@@ -145,17 +141,13 @@
             },
             fetchRecipients()
             {
-                fetch('/api/recipients')
+                this.$http.get('/api/recipients')
                 .then( response => {
-                    if (!response.ok) throw response;
+                    this.recipients = response.data['hydra:member'];
+                })
+                .catch( error => {
+                    if (error.response.status === 401) return;
 
-                    return response.json();
-                })
-                .then( (data) => {
-                    this.recipients = data['hydra:member'];
-                })
-                .catch( (error) => {
-                    console.log(error);
                     this.notify('error', 'Impossible de récupérer les destinataires');
                 });
             },
@@ -168,27 +160,25 @@
             create()
             {
                 const idea = this.idea;
-                fetch('/api/ideas', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/ld+json'},
-                    body: JSON.stringify({
+
+                this.$http.post(
+                    '/api/ideas',
+                    JSON.stringify({
                         label: idea.label,
                         recipients: idea.recipientsUri,
                         price: {
                             value: parseFloat(idea.price)
                         },
-                    })
-                })
-                .then( (response) => {
-                    if (!response.ok) throw response;
-
+                    }),
+                )
+                .then( () => {
                     this.notify('success', "L'idée cadeau a bien été créée");
                     this.$emit('formValidated');
 
                     this.$router.push({ name: 'ideaList' });
                 })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
 
                     this.notify('error', "Impossible de créer l'idée cadeau");
                     this.$emit('formValidated', true);
@@ -197,50 +187,41 @@
             update()
             {
                 const idea = this.idea;
-                fetch('/api/ideas/' + idea.id, {
-                        method: 'PUT',
-                        headers: {'Content-Type': 'application/ld+json'},
-                        body: JSON.stringify({
-                            label: idea.label,
-                            recipients: idea.recipientsUri,
-                            price: {
-                                value: parseFloat(idea.price.value)
-                            },
-                        })
-                    })
-                    .then( (response) => {
-                        if (!response.ok) throw response;
 
-                        this.notify('success', "L'idée cadeau a bien été modifiée");
-                        this.$emit('formValidated');
-                    })
-                    .catch( (error) => {
-                        console.log(error);
+                this.$http.post(
+                    '/api/ideas',
+                    JSON.stringify({
+                        label: idea.label,
+                        recipients: idea.recipientsUri,
+                        price: {
+                            value: parseFloat(idea.price)
+                        },
+                    }),
+                )
+                .then( () => {
+                    this.notify('success', "L'idée cadeau a bien été modifiée");
+                    this.$emit('formValidated');
+                })
+                .catch( error => {
+                    if (error.response.status === 401) return;
 
-                        this.notify('error', "Impossible de modifier l'idée cadeau");
-                        this.$emit('formValidated', true);
-                    });
-                ;
+                    this.notify('error', "Impossible de modifier l'idée cadeau");
+                    this.$emit('formValidated', true);
+                });
             },
             createGift(gift)
             {
-                fetch('/api/gifts/from_idea', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/ld+json'},
-                    body: JSON.stringify({
+                this.$http.post(
+                    '/api/gifts/from_idea',
+                    JSON.stringify({
                         idea: this.idea['@id'],
                         recipients: gift.recipientsUri,
                         eventYear: gift.eventYear,
-                    })
-                })
-                .then( (response) => {
-                    if (!response.ok) throw response;
-
+                    }),
+                )
+                .then( () => {
                     this.notify('success', "Le cadeau a bien été créé");
                     this.$router.push({ name: 'giftList' });
-                })
-                .catch( (err) => {
-                    console.log(err);
                 })
                 .finally(() => this.showCreateGiftDialog = false);
             },

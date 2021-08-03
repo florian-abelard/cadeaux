@@ -60,7 +60,7 @@
 
 <script>
 
-    import FormSkeletonLoader from '../../components/loaders/FormSkeletonLoader.vue'
+    import FormSkeletonLoader from '../../components/loaders/FormSkeletonLoader.vue';
 
     export default {
         name: "GiftDetail",
@@ -98,21 +98,18 @@
             fetchGift(id) {
                 this.loading = true;
 
-                fetch('/api/gifts/' + id)
+                this.$http.get('/api/gifts/' + id)
                     .then( response => {
-                        if (!response.ok) throw response;
-                        return response.json();
-                    })
-                    .then( (data) => {
-                        this.gift = data;
+                        this.gift = response.data;
                         this.gift.recipientsUri = this.gift.recipients.map( element => element['@id'] );
                     })
-                    .catch( (error) => {
-                        if (error.status === 404) {
-                            this.notify('error', "Le cadeau n'a pas été trouvé");
-                        } else {
-                            this.notify('error', error.statusText);
-                        }
+                    .catch( error => {
+                        if (error.response.status === 401) return;
+
+                        error.status === 404
+                            ? this.notify('error', "Le cadeau n'a pas été trouvé")
+                            : this.notify('error', error.statusText);
+
                         this.$router.push({ name: 'home' });
                     })
                     .finally( () => {
@@ -122,16 +119,13 @@
             },
             fetchRecipients()
             {
-                fetch('/api/recipients')
+                this.$http.get('/api/recipients')
                 .then( response => {
-                    if (!response.ok) throw response;
-                    return response.json();
+                    this.recipients = response.data['hydra:member'];
                 })
-                .then( (data) => {
-                    this.recipients = data['hydra:member'];
-                })
-                .catch( (error) => {
-                    console.log(error);
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
                     this.notify('error', 'Impossible de récupérer les destinataires');
                 });
             },
@@ -145,28 +139,25 @@
             {
                 const gift = this.gift;
 
-                fetch('/api/gifts', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/ld+json'},
-                    body: JSON.stringify({
+                this.$http.post(
+                    '/api/gifts',
+                    JSON.stringify({
                         label: gift.label,
                         recipients: gift.recipientsUri,
                         eventYear: gift.eventYear,
                         price: {
                             value: parseFloat(gift.price)
                         },
-                    })
-                })
-                .then( response => {
-                    if (!response.ok) throw response;
-
+                    }),
+                )
+                .then( () => {
                     this.notify('success', 'Le cadeau a bien été créé');
                     this.$emit('formValidated');
 
                     this.$router.push({ name: 'giftList' });
                 })
                 .catch( (error) => {
-                    console.log(error);
+                    if (error.response.status === 401) return;
 
                     this.notify('error', 'Impossible de créer le cadeau');
                     this.$emit('formValidated', true);
@@ -176,31 +167,25 @@
             {
                 const gift = this.gift;
 
-                fetch('/api/gifts/' + gift.id, {
-                        method: 'PUT',
-                        headers: {'Content-Type': 'application/ld+json'},
-                        body: JSON.stringify({
-                            label: gift.label,
-                            recipients: gift.recipientsUri,
-                            eventYear: gift.eventYear,
-                            price: {
-                                value: parseFloat(gift.price.value)
-                            },
-                        })
-                    })
-                    .then( response => {
-                        if (!response.ok) throw response;
-
-                        this.notify('success', 'Le cadeau a bien été modifié');
-                        this.$emit('formValidated');
-                    })
-                    .catch( (error) => {
-                        console.log(error);
-
-                        this.notify('error', 'Impossible de modifier le cadeau');
-                        this.$emit('formValidated', true);
-                    });
-                ;
+                this.$http.put(
+                    '/api/gifts/' + gift.id,
+                    JSON.stringify({
+                        label: gift.label,
+                        recipients: gift.recipientsUri,
+                        eventYear: gift.eventYear,
+                        price: {
+                            value: parseFloat(gift.price.value)
+                        },
+                    }),
+                )
+                .then( () => {
+                    this.notify('success', 'Le cadeau a bien été modifié');
+                    this.$emit('formValidated');
+                })
+                .catch( () => {
+                    this.notify('error', 'Impossible de modifier le cadeau');
+                    this.$emit('formValidated', true);
+                });
             },
         }
     }
