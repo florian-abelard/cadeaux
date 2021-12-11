@@ -111,7 +111,6 @@
         watch: {
             submitForm: function () {
                 if (this.submitForm) {
-                    console.log('submitForm');
                     this.onSubmit();
                 }
             }
