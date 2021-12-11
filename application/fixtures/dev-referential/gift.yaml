@@ -1,7 +1,549 @@
 App\Entity\Gift:
-  gift1:
-    label: 'Orangette au chocolat'
-    price: '<identity(new App\Entity\ValueObject\Price("8.50"))>'
+  gift2012-1:
+    label: 'DVD Gojira'
+    recipients: ['@recipient-clement']
+    eventYear: '2012'
+  gift2012-2:
+    label: 'DVD Spider'
+    recipients: ['@recipient-romain']
+    eventYear: '2012'
+
+  gift2013-1:
+    label: 'Livre "Plaidoyer pour l''altruisme" de Mathieu Ricard'
+    recipients: ['@recipient-mamini']
+    eventYear: '2013'
+  gift2013-2:
+    label: 'Boite de Thé Framboise Cacao Cannelle'
+    recipients: ['@recipient-mamini']
+    eventYear: '2013'
+  gift2013-3:
+    label: 'Livre de recette Nutella'
+    recipients: ['@recipient-lora']
+    eventYear: '2013'
+  gift2013-4:
+    label: 'Kit de patisserie'
+    recipients: ['@recipient-lora']
+    eventYear: '2013'
+  gift2013-5:
+    label: 'CD "Et Nous Voila!" de Nicolas Peyrac'
+    recipients: ['@recipient-fafa', '@recipient-dom']
+    eventYear: '2013'
+  gift2013-7:
+    label: '"Voyages en absurdie" de Stéphane de Groodt'
+    recipients: ['@recipient-papi', '@recipient-mamiflo']
+    eventYear: '2013'
+  gift2013-9:
+    label: 'Livre "L''apothicaire"'
+    recipients: ['@recipient-pascale']
+    eventYear: '2013'
+  gift2013-10:
+    label: 'Boite de Thé - coffret découverte'
+    recipients: ['@recipient-pascale']
+    eventYear: '2013'
+  gift2013-11:
+    label: 'DVD "Sugar Man"'
+    recipients: ['@recipient-clementine']
+    eventYear: '2013'
+  gift2013-12:
+    label: 'DVD "Populaire"'
+    recipients: ['@recipient-juliette']
+    eventYear: '2013'
+  gift2013-13:
+    label: 'DVD "Control"'
+    recipients: ['@recipient-thibaut-lacas']
+    eventYear: '2013'
+  gift2013-14:
+    label: 'Jeu de société "Duplik"'
+    recipients: ['@recipient-romain', '@recipient-amelie']
+    eventYear: '2013'
+  gift2013-16:
+    label: 'Truffes maison'
+    recipients: ['@recipient-mamie-des-vignes']
+    eventYear: '2013'
+
+  gift2014-1:
+    label: 'CD "Very Best of" de Original Dubliners'
+    recipients: ['@recipient-mamini']
+    eventYear: '2014'
+  gift2014-2:
+    label: 'CD "Black & White" de Ewan Maccoll'
+    recipients: ['@recipient-mamini']
+    eventYear: '2014'
+  gift2014-3:
+    label: 'Livre'
+    recipients: ['@recipient-papiphi']
+    eventYear: '2014'
+  gift2014-4:
+    label: 'DVD "The Grand Budapest Hotel"'
+    recipients: ['@recipient-fafa', '@recipient-dom']
+    eventYear: '2014'
+  gift2014-5:
+    label: 'Coffret sirops pour cafés gourmands'
+    recipients: ['@recipient-fafa', '@recipient-dom']
+    eventYear: '2014'
+  gift2014-6:
+    label: 'DVD "12 years slave"'
+    recipients: ['@recipient-papi', '@recipient-mamiflo']
+    eventYear: '2014'
+  gift2014-7:
+    label: 'Chocolats à l''orange'
     recipients: ['@recipient-mamiflo']
-    note: 'Coucou'
+    eventYear: '2014'
+  gift2014-8:
+    label: 'Livre "Géo Sagesses du monde"'
+    recipients: ['@recipient-pascale']
+    eventYear: '2014'
+  gift2014-9:
+    label: 'Epices pour salade'
+    recipients: ['@recipient-pascale']
+    eventYear: '2014'
+  gift2014-10:
+    label: 'Jeux de société "Docteur Smash"'
+    recipients: ['@recipient-clementine']
+    eventYear: '2014'
+  gift2014-11:
+    label: 'Lot de crème pour les mains'
+    recipients: ['@recipient-juliette']
+    eventYear: '2014'
+  gift2014-12:
+    label: 'Kit pour macarons'
+    recipients: ['@recipient-thibaut-lacas']
+    eventYear: '2014'
+  gift2014-13:
+    label: 'P''tit Beurre Vincent Guerlais'
+    recipients: ['@recipient-romain', '@recipient-amelie']
+    eventYear: '2014'
+  gift2014-14:
+    label: 'Crème pour les mains'
+    recipients: ['@recipient-amelie']
+    eventYear: '2014'
+  gift2014-15:
+    label: 'Macarons Damien'
+    recipients: ['@recipient-mamie-des-vignes']
+    eventYear: '2014'
+
+  gift2015-1:
+    label: 'CD "Kenji Girac"'
+    recipients: ['@recipient-mamini']
+    eventYear: '2015'
+  gift2015-2:
+    label: 'Livre "Histoire de Long Ma"'
+    recipients: ['@recipient-mamini']
+    eventYear: '2015'
+  gift2015-3:
+    label: 'CD "Sonates au violoncelle" de Jean Barrière COCSET'
+    recipients: ['@recipient-papiphi']
+    eventYear: '2015'
+  gift2015-4:
+    label: 'Sac à main'
+    recipients: ['@recipient-michele']
+    eventYear: '2015'
+  gift2015-5:
+    label: 'DVD "Whiplash"'
+    recipients: ['@recipient-clement']
+    eventYear: '2015'
+  gift2015-6:
+    label: 'Box vins'
+    recipients: ['@recipient-papi', '@recipient-mamiflo']
+    eventYear: '2015'
+  gift2015-7:
+    label: 'DVD "Whiplash"'
+    recipients: ['@recipient-papi', '@recipient-mamiflo']
+    eventYear: '2015'
+  gift2015-8:
+    label: 'Assortiment produits à la truffe'
+    recipients: ['@recipient-pascale']
+    eventYear: '2015'
+  gift2015-9:
+    label: 'Plante + tablier de jardinage'
+    recipients: ['@recipient-fafa', '@recipient-dom']
+    eventYear: '2015'
+  gift2015-10:
+    label: 'Coffret initiation tradition du Hammam (Yves Rocher)'
+    recipients: ['@recipient-clementine']
+    eventYear: '2015'
+  gift2015-11:
+    label: 'Box Girly'
+    recipients: ['@recipient-juliette']
+    eventYear: '2015'
+  gift2015-12:
+    label: 'Livre "l''actu en patates"'
+    recipients: ['@recipient-thibaut-lacas']
+    eventYear: '2015'
+  gift2015-13:
+    label: 'DVD "Vice et Versa"'
+    recipients: ['@recipient-romain', '@recipient-amelie']
+    eventYear: '2015'
+  gift2015-14:
+    label: 'Assortiment de produits de beauté Yves Rocher'
+    recipients: ['@recipient-amelie']
+    eventYear: '2015'
+  gift2015-15:
+    label: 'Plateau de fruits secs'
+    recipients: ['@recipient-mamie-des-vignes']
+    eventYear: '2015'
+  gift2015-16:
+    label: 'Carré de soie'
+    recipients: ['@recipient-pape']
+    eventYear: '2015'
+  gift2015-17:
+    label: 'Petit livre des jeux japonais'
+    recipients: ['@recipient-mamee']
+    eventYear: '2015'
+  gift2015-18:
+    label: 'Broche pour manteau'
+    recipients: ['@recipient-mamee']
+    eventYear: '2015'
+  gift2015-19:
+    label: 'Bouteille de Whisky'
+    recipients: ['@recipient-thibaut-lasterre']
+    eventYear: '2015'
+  gift2015-20:
+    label: 'Livre "Jadis Jadis" aux éditions Mnémos'
+    recipients: ['@recipient-aurelie']
+    eventYear: '2015'
+  gift2015-21:
+    label: 'Petit porte-monnaie'
+    recipients: ['@recipient-charline']
+    eventYear: '2015'
+  gift2015-22:
+    label: 'BD "La famille Fenouillard"'
+    recipients: ['@recipient-guillaume']
+    eventYear: '2015'
+  gift2015-23:
+    label: 'Casquette'
+    recipients: ['@recipient-arthur']
+    eventYear: '2015'
+  gift2015-24:
+    label: 'Abonnement Popi'
+    recipients: ['@recipient-junon']
+    eventYear: '2015'
+  gift2015-25:
+    label: 'T-Shirts'
+    recipients: ['@recipient-jules']
+    eventYear: '2015'
+
+  gift2016-1:
+    label: 'BD sur Benoîte Groult'
+    recipients: ['@recipient-aurelie']
+    eventYear: '2016'
+  gift2016-2:
+    label: 'Kit cuisine gressins'
+    recipients: ['@recipient-arthur']
+    eventYear: '2016'
+  gift2016-3:
+    label: 'Déguisement de clown'
+    recipients: ['@recipient-jules']
+    eventYear: '2016'
+  gift2016-4:
+    label: 'Hochet qui roule'
+    recipients: ['@recipient-jeanne']
+    eventYear: '2016'
+  gift2016-5:
+    label: 'Vase'
+    recipients: ['@recipient-charline']
+    eventYear: '2016'
+  gift2016-6:
+    label: 'BD "L''arabe du futur"'
+    recipients: ['@recipient-guillaume']
+    eventYear: '2016'
+  gift2016-7:
+    label: 'Horloge à aiguilles'
+    recipients: ['@recipient-junon']
+    eventYear: '2016'
+  gift2016-8:
+    label: 'Petits bateaux'
+    recipients: ['@recipient-amaurine']
+    eventYear: '2016'
+  gift2016-9:
+    label: 'Bouteille de Cognac'
+    recipients: ['@recipient-papi', '@recipient-mamiflo']
+    eventYear: '2016'
+  gift2016-10:
+    label: 'Assortiment vinaigre/huile/moutarde'
+    recipients: ['@recipient-papi', '@recipient-mamiflo']
+    eventYear: '2016'
+  gift2016-11:
+    label: 'Coffret de thé'
+    recipients: ['@recipient-juliette']
+    eventYear: '2016'
+  gift2016-12:
+    label: 'BD "Les culottées" tome 1'
+    recipients: ['@recipient-clementine']
+    eventYear: '2016'
+  gift2016-13:
+    label: 'Support téléphone pour la voiture'
+    recipients: ['@recipient-mamini']
+    eventYear: '2016'
+  gift2016-15:
+    label: 'Assortiments de chocolats'
+    recipients: ['@recipient-medhi']
+    eventYear: '2016'
+  gift2016-16:
+    label: 'Assortiments de chocolats'
+    recipients: ['@recipient-antoine']
+    eventYear: '2016'
+  gift2016-17:
+    label: 'Pâtes de fruits'
+    recipients: ['@recipient-mamie-des-vignes']
+    eventYear: '2016'
+  gift2016-18:
+    label: 'CD des Rollings Stones'
+    recipients: ['@recipient-papiphi']
+    eventYear: '2016'
+
+  gift2017-1:
+    label: 'Plante à suspendre'
+    recipients: ['@recipient-charline']
     eventYear: '2017'
+  gift2017-2:
+    label: 'Fleurs de thé'
+    recipients: ['@recipient-aurelie']
+    eventYear: '2017'
+  gift2017-3:
+    label: 'Casse-tête Puzzle Man'
+    recipients: ['@recipient-arthur']
+    eventYear: '2017'
+  gift2017-4:
+    label: 'Petits bijoux'
+    recipients: ['@recipient-junon']
+    eventYear: '2017'
+  gift2017-5:
+    label: 'Chamboultout'
+    recipients: ['@recipient-jules']
+    eventYear: '2017'
+  gift2017-6:
+    label: 'Tablier dînette'
+    recipients: ['@recipient-amaurine']
+    eventYear: '2017'
+  gift2017-7:
+    label: 'Jeu de bain'
+    recipients: ['@recipient-jeanne']
+    eventYear: '2017'
+  gift2017-8:
+    label: 'Fauteuil'
+    recipients: ['@recipient-roxane']
+    eventYear: '2017'
+  gift2017-9:
+    label: 'Bon d''achat Maison du monde'
+    recipients: ['@recipient-juliette', '@recipient-antoine']
+    eventYear: '2017'
+  gift2017-10:
+    label: 'Calendrier photos'
+    recipients: ['@recipient-mamie-des-vignes']
+    eventYear: '2017'
+  gift2017-11:
+    label: 'Tente extension Berlingot (participation)'
+    recipients: ['@recipient-mamini', '@recipient-papiphi']
+    eventYear: '2017'
+  gift2017-12:
+    label: 'BD "Les culottées" tome 2'
+    recipients: ['@recipient-clementine']
+    eventYear: '2017'
+  gift2017-13:
+    label: 'Roue des cocktails'
+    recipients: ['@recipient-medhi']
+    eventYear: '2017'
+  gift2017-14:
+    label: 'Place pour un match à la Beaujoire'
+    recipients: ['@recipient-papi']
+    eventYear: '2017'
+  gift2017-15:
+    label: 'Livre "La servante écarlate"'
+    recipients: ['@recipient-mamiflo']
+    eventYear: '2017'
+  gift2017-16:
+    label: 'Coffret fabrication de gâteaux de Noël'
+    recipients: ['@recipient-romain', '@recipient-amelie']
+    eventYear: '2017'
+  gift2017-17:
+    label: 'Kit cocktail au rhum'
+    recipients: ['@recipient-thibaut-lacas']
+    eventYear: '2017'
+  gift2017-18:
+    label: 'Coffret chocolat en poudre aromatisé'
+    recipients: ['@recipient-fafa', '@recipient-dom']
+    eventYear: '2017'
+  gift2017-19:
+    label: 'Jeu "La France pour les nuls"'
+    recipients: ['@recipient-pascale']
+    eventYear: '2017'
+  gift2017-20:
+    label: 'CD de Cécilia Bartholdi avec un violoncelliste'
+    recipients: ['@recipient-papiphi']
+    eventYear: '2017'
+  gift2017-21:
+    label: 'Mini bâton de pluie'
+    recipients: ['@recipient-simon']
+    eventYear: '2017'
+  gift2017-22:
+    label: 'Roman "L''ombre du vent"'
+    recipients: ['@recipient-michele']
+    eventYear: '2017'
+  gift2017-23:
+    label: 'Guide des aires pour camping-car'
+    recipients: ['@recipient-mamini']
+    eventYear: '2017'
+  gift2017-24:
+    label: 'Collier'
+    recipients: ['@recipient-lora']
+    eventYear: '2017'
+
+  gift2018-1:
+    label: 'Plateau de fromages'
+    recipients: ['@recipient-valerie']
+    eventYear: '2018'
+  gift2018-2:
+    label: 'Boule en verre décorative pour le jardin'
+    recipients: ['@recipient-guillaume', '@recipient-charline']
+    eventYear: '2018'
+  gift2018-3:
+    label: 'Patron de couture'
+    recipients: ['@recipient-aurelie']
+    eventYear: '2018'
+  gift2018-4:
+    label: 'Attrape-souris'
+    recipients: ['@recipient-arthur']
+    eventYear: '2018'
+  gift2018-6:
+    label: 'Ballon et panier de basket'
+    recipients: ['@recipient-junon']
+    eventYear: '2018'
+  gift2018-7:
+    label: 'Jeu de la grenouille'
+    recipients: ['@recipient-jules']
+    eventYear: '2018'
+  gift2018-8:
+    label: 'Cherche et trouve géant - les époques historiques'
+    recipients: ['@recipient-amaurine']
+    eventYear: '2018'
+  gift2018-9:
+    label: 'Attrape-plumes'
+    recipients: ['@recipient-jeanne']
+    eventYear: '2018'
+  gift2018-10:
+    label: 'Vieux Rhum'
+    recipients: ['@recipient-clementine', '@recipient-medhi']
+    eventYear: '2018'
+  gift2018-11:
+    label: 'Tasses à thé'
+    recipients: ['@recipient-mamie-des-vignes']
+    eventYear: '2018'
+  gift2018-12:
+    label: 'Fleurs de thé'
+    recipients: ['@recipient-juliette']
+    eventYear: '2018'
+  gift2018-13:
+    label: 'Chocolats'
+    recipients: ['@recipient-antoine']
+    eventYear: '2018'
+  gift2018-14:
+    label: 'BD cosmonaute'
+    recipients: ['@recipient-papi']
+    eventYear: '2018'
+  gift2018-15:
+    label: 'Orangettes'
+    recipients: ['@recipient-mamiflo']
+    eventYear: '2018'
+
+  gift2019-1:
+    label: 'Plat à tarte'
+    recipients: ['@recipient-charline']
+    eventYear: '2019'
+  gift2019-2:
+    label: 'Foulard "Papa pique et Maman Coud"'
+    recipients: ['@recipient-aurelie']
+    eventYear: '2019'
+  gift2019-3:
+    label: 'Livre "Les Grandes grandes vacances" tomes 1 et 2'
+    recipients: ['@recipient-arthur']
+    eventYear: '2019'
+  gift2019-4:
+    label: 'Rollers'
+    recipients: ['@recipient-junon']
+    eventYear: '2019'
+  gift2019-5:
+    label: 'Puzzle pays du monde'
+    recipients: ['@recipient-jules']
+    eventYear: '2019'
+  gift2019-6:
+    label: 'Rollers'
+    recipients: ['@recipient-amaurine']
+    eventYear: '2019'
+  gift2019-7:
+    label: 'Dessineo'
+    recipients: ['@recipient-jeanne']
+    eventYear: '2019'
+  gift2019-8:
+    label: 'Ruben Pat''Patrouille'
+    recipients: ['@recipient-roxane']
+    eventYear: '2019'
+  gift2019-9:
+    label: 'Livre avec CD'
+    recipients: ['@recipient-roxane']
+    eventYear: '2019'
+  gift2019-10:
+    label: 'Histoires à projeter'
+    recipients: ['@recipient-roxane']
+    eventYear: '2019'
+  gift2019-11:
+    label: 'Plantes aromatiques d''intérieur'
+    recipients: ['@recipient-antoine', '@recipient-juliette']
+    eventYear: '2019'
+  gift2019-12:
+    label: 'Coffret huile basilic ail'
+    recipients: ['@recipient-mamie-des-vignes']
+    eventYear: '2019'
+  gift2019-13:
+    label: 'Jeu de collaboration - création d''un feu d''artifice'
+    recipients: ['@recipient-clementine', '@recipient-medhi']
+    eventYear: '2019'
+  gift2019-14:
+    label: 'Box vins (cadeau commun)'
+    recipients: ['@recipient-papi']
+    eventYear: '2019'
+  gift2019-15:
+    label: 'Coffret chocolats'
+    recipients: ['@recipient-mamiflo']
+    eventYear: '2019'
+  gift2019-16:
+    label: 'Machine vintage Pop Corn'
+    recipients: ['@recipient-romain', '@recipient-amelie']
+    eventYear: '2019'
+  gift2019-17:
+    label: 'Assortiment chocolat / bonbons / pâtes à tartiner'
+    recipients: ['@recipient-thibaut-lacas']
+    eventYear: '2019'
+  gift2019-18:
+    label: 'Coffret de dipettes'
+    recipients: ['@recipient-fafa', '@recipient-dom']
+    eventYear: '2019'
+  gift2019-19:
+    label: 'Calendrier perpetuel d''anniversaires'
+    recipients: ['@recipient-pascale']
+    eventYear: '2019'
+  gift2019-20:
+    label: 'Livre d''activités'
+    recipients: ['@recipient-soan']
+    eventYear: '2019'
+  gift2019-21:
+    label: 'Jeu de quilles'
+    recipients: ['@recipient-nael']
+    eventYear: '2019'
+  gift2019-22:
+    label: 'Livre "La vie de Greta Calo"'
+    recipients: ['@recipient-michele']
+    eventYear: '2019'
+  gift2019-23:
+    label: 'Châle'
+    recipients: ['@recipient-lora']
+    eventYear: '2019'
+  gift2019-24:
+    label: 'Sabots échasse'
+    recipients: ['@recipient-simon']
+    eventYear: '2019'
+  gift2019-25:
+    label: 'Châle'
+    recipients: ['@recipient-valerie']
+    eventYear: '2019'
+

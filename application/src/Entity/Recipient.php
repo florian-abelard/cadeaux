@@ -12,7 +12,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ApiResource(
  *     collectionOperations={"get"},
- *     attributes={"order"={"name": "ASC"}},
+ *     attributes={
+ *         "order"={"name": "ASC"},
+ *         "pagination_enabled"=false
+ *     },
  * )
  */
 class Recipient
