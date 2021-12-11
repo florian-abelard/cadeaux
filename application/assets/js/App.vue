@@ -104,7 +104,7 @@
 
         </v-content>
 
-        <notifications position="bottom center" width="100%"/>
+        <notifications position="bottom center" width="300px"/>
 
     </v-app>
 
