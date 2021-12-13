@@ -47,7 +47,7 @@
                             <v-container class="mt-3 pa-0 d-flex justify-center">
                                 <v-btn
                                     medium
-                                    @click="initializeFilters()"
+                                    @click="resetFilters()"
                                 >
                                     Réinitialiser
                                     <v-icon right color="grey darken-1">
@@ -137,15 +137,15 @@
             };
         },
         created() {
-            this.fetchIdeas();
+            this.initializeFilters();
             this.fetchGroups();
             this.fetchRecipients();
-            this.initializeFilters();
         },
         watch: {
             filters: {
                 handler: function(value) {
                     this.fetchIdeas();
+                    this.$store.commit('saveFilters', value);
                 },
                 deep: true
             },
@@ -218,11 +218,10 @@
                 });
             },
             initializeFilters() {
-                this.filters = {
-                    'label': '',
-                    'recipients.group.id': '',
-                    'recipients.id[]': [],
-                };
+                this.filters = this.$store.state.filters;
+            },
+            resetFilters() {
+                this.filters = {};
             },
         }
     }

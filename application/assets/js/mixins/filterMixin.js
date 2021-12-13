@@ -1,9 +1,7 @@
 export default {
   methods: {
     formatQueryParams(filters) {
-      let params = '';
-
-      params = new URLSearchParams();
+      const params = new URLSearchParams();
 
       for (const [filter, value] of Object.entries(filters)) {
 
