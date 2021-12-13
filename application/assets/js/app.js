@@ -12,6 +12,7 @@ import App from "./App";
 import NotificationMixin from './mixins/notificationMixin';
 import vuetify from './plugins/vuetify';
 import router from "./router";
+import store from "./store/store";
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '@mdi/font/css/materialdesignicons.min.css';
@@ -30,6 +31,7 @@ new Vue({
     el: '#app',
     components: { App },
     template: "<App/>",
+    store,
     router,
     vuetify,
 });

@@ -56,7 +56,7 @@
                             <v-container class="mt-3 pa-0 d-flex justify-center">
                                 <v-btn
                                     small
-                                    @click="initializeFilters()"
+                                    @click="resetFilters()"
                                 >
                                     Réinitialiser
                                     <v-icon right color="grey darken-1">
@@ -147,16 +147,16 @@
             };
         },
         created() {
-            this.fetchGifts();
+            this.initializeFilters();
             this.fetchGroups();
             this.fetchRecipients();
-            this.initializeFilters();
-            this.initEventYears();
+            this.initializeEventYears();
         },
         watch: {
             filters: {
                 handler: function(value) {
                     this.fetchGifts();
+                    this.$store.commit('saveFilters', value);
                 },
                 deep: true
             },
@@ -229,13 +229,12 @@
                 });
             },
             initializeFilters() {
-                this.filters = {
-                    'label': '',
-                    'recipients.group.id': '',
-                    'recipients.id[]': [],
-                };
+                this.filters = this.$store.state.filters;
             },
-            initEventYears() {
+            resetFilters() {
+                this.filters = {};
+            },
+            initializeEventYears() {
                 const currentYear = new Date().getFullYear();
                 const startYear = currentYear - 10;
                 const endYear = currentYear + 1;
