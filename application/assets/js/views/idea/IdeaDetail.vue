@@ -187,8 +187,8 @@
             {
                 const idea = this.idea;
 
-                this.$http.post(
-                    '/api/ideas',
+                this.$http.put(
+                    '/api/ideas/' + idea.id,
                     JSON.stringify({
                         label: idea.label,
                         recipients: idea.recipientsUri,
