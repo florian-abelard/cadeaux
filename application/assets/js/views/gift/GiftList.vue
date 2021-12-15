@@ -36,12 +36,15 @@
                                 :items="recipients"
                                 item-text="name"
                                 item-value="@id"
+                                :search-input.sync="recipientsSearch"
+                                @change="recipientsSearch = ''"
                                 small-chips
                                 deletable-chips
                                 label="Destinataires"
                                 multiple
                                 clearable
                                 auto-select-first
+                                :menu-props="{ closeOnContentClick: true }"
                             ></v-autocomplete>
 
                             <v-select
@@ -144,6 +147,7 @@
                 filters: {},
                 showFilter: this.showMainFilter,
                 loading: true,
+                recipientsSearch: '',
             };
         },
         created() {
