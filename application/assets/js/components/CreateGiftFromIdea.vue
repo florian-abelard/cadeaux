@@ -79,6 +79,13 @@
         created() {
             this.gift.recipientsUri = this.ideaRecipientsUri;
         },
+        watch: {
+            ideaRecipientsUri: {
+                handler(value) {
+                    this.gift.recipientsUri = value;
+                },
+            },
+        },
         computed: {
             show: {
                 get () {

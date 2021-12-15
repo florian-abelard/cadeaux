@@ -19,16 +19,19 @@
                 </v-text-field>
 
                 <v-autocomplete
+                    :disabled="!editing"
                     v-model="gift.recipientsUri"
                     :items="recipients"
                     item-text="name"
                     item-value="@id"
+                    :search-input.sync="recipientsSearch"
+                    @change="recipientsSearch = ''"
                     small-chips
                     deletable-chips
                     label="Destinataires"
                     multiple
                     auto-select-first
-                    :disabled="!editing"
+                    :menu-props="{ closeOnContentClick: true }"
                 ></v-autocomplete>
 
                 <v-text-field
@@ -78,6 +81,7 @@
                 },
                 recipients: [],
                 loading: false,
+                recipientsSearch: '',
             };
         },
         created() {
