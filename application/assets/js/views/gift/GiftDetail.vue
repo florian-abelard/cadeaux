@@ -157,7 +157,7 @@
                         recipients: gift.recipientsUri,
                         eventYear: gift.eventYear,
                         price: {
-                            value: parseFloat(gift.price)
+                            value: parseFloat(gift.price.value)
                         },
                         note: gift.note,
                     }),

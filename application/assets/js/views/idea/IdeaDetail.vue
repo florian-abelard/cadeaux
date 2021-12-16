@@ -170,6 +170,7 @@
             create()
             {
                 const idea = this.idea;
+                console.log(idea);
 
                 this.$http.post(
                     '/api/ideas',
@@ -177,7 +178,7 @@
                         label: idea.label,
                         recipients: idea.recipientsUri,
                         price: {
-                            value: parseFloat(idea.price)
+                            value: parseFloat(idea.price.value)
                         },
                         note: idea.note,
                     }),
@@ -198,6 +199,7 @@
             update()
             {
                 const idea = this.idea;
+                console.log(idea);
 
                 this.$http.put(
                     '/api/ideas/' + idea.id,
@@ -205,7 +207,7 @@
                         label: idea.label,
                         recipients: idea.recipientsUri,
                         price: {
-                            value: parseFloat(idea.price)
+                            value: parseFloat(idea.price.value)
                         },
                         note: idea.note,
                     }),
