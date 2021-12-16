@@ -99,9 +99,13 @@
                         </router-link>
 
                         <v-list-item-action>
-                            <v-btn icon v-on:click="deleteGift(gift.id)">
+
+                            <v-list-item-action-text v-text="gift.eventYear"></v-list-item-action-text>
+
+                            <v-btn icon small v-on:click="deleteGift(gift.id)">
                                 <v-icon color="grey lighten-1">mdi-delete</v-icon>
                             </v-btn>
+
                         </v-list-item-action>
 
                     </v-list-item>
@@ -255,4 +259,10 @@
 </script>
 
 <style scoped>
+
+    .v-list-item__action-text {
+        color: rgba(0, 0, 0, .87) !important;
+        font-size: 1rem;
+    }
+
 </style>

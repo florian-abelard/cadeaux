@@ -108,6 +108,7 @@ class Gift implements TimestampableInterface
      * @Assert\Length(max=4)
      *
      * @Groups({
+     *     "gift:read",
      *     "gift:write",
      *     "gift:item:get",
      * })

@@ -90,7 +90,7 @@
                         </router-link>
 
                         <v-list-item-action>
-                            <v-btn icon v-on:click="deleteIdea(idea.id)">
+                            <v-btn icon small v-on:click="deleteIdea(idea.id)">
                                 <v-icon color="grey lighten-1">mdi-delete</v-icon>
                             </v-btn>
                         </v-list-item-action>
