@@ -104,6 +104,18 @@ class Idea implements TimestampableInterface
      */
     private $recipients;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\Length(max=255)
+     *
+     * @Groups({
+     *     "idea:write",
+     *     "idea:item:get"
+     * })
+     */
+    private $note;
+
     public function __construct()
     {
         $this->price = new Price();
@@ -154,6 +166,18 @@ class Idea implements TimestampableInterface
     public function removeRecipient(Recipient $recipient): self
     {
         $this->recipients->removeElement($recipient);
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
 
         return $this;
     }

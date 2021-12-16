@@ -42,6 +42,7 @@ final class CreateGiftFromIdeaCommandHandler implements MessageHandlerInterface
 
         $gift->setLabel($idea->getLabel());
         $gift->setPrice($idea->getPrice());
+        $gift->setNote($idea->getNote());
         $gift->setEventYear($eventYear);
 
         foreach ($recipients as $recipient) {
