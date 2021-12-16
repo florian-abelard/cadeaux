@@ -53,6 +53,7 @@
                                 label="Année de l'évènement"
                                 multiple
                                 clearable
+                                :menu-props="{ closeOnContentClick: true }"
                             >
                             </v-select>
 
