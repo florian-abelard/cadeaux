@@ -1,0 +1,7 @@
+App\Entity\Event:
+  event-noel2021:
+    label: 'Noël 2021'
+    year: '2021'
+    participants: ['@recipient-roxane', '@recipient-colin', '@recipient-maud', '@recipient-florian']
+
+
