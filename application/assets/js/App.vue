@@ -69,6 +69,15 @@
                                 </v-list-item-content>
                             </router-link>
 
+                            <router-link to="/events" tag="v-list-item" link>
+                                <v-list-item-icon>
+                                    <v-icon>mdi-calendar-star</v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title>Evénements</v-list-item-title>
+                                </v-list-item-content>
+                            </router-link>
+
                             <v-divider class="my-3"></v-divider>
 
                             <v-list-item link>
