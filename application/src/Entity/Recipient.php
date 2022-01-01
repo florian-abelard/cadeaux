@@ -32,6 +32,7 @@ class Recipient
      *     "idea:read",
      *     "idea:item:get",
      *     "gift:read",
+     *     "event:item:get"
      * })
      */
     private $id;
@@ -43,6 +44,7 @@ class Recipient
      *     "idea:read",
      *     "idea:item:get",
      *     "gift:read",
+     *     "event:item:get"
      * })
      */
     private $name;

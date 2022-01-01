@@ -25,6 +25,12 @@
                 >
                 </v-text-field>
 
+                <participant-list
+                    :participants="event.participants"
+                    :editing="editing"
+                    v-on:participantDeleted="deleteParticipant"
+                />
+
             </v-form>
 
         </div>
@@ -41,6 +47,7 @@
 <script>
 
     import FormSkeletonLoader from '../../components/loaders/FormSkeletonLoader.vue';
+    import ParticipantList from './ParticipantList.vue';
 
     export default {
         name: "EventDetail",
@@ -50,6 +57,7 @@
         },
         components: {
             FormSkeletonLoader,
+            ParticipantList,
         },
         data() {
             return {
@@ -107,6 +115,7 @@
                     JSON.stringify({
                         label: event.label,
                         year: event.year,
+                        participants: this.event.participants.map(element => element['@id']),
                     }),
                 )
                 .then( () => {
@@ -131,6 +140,7 @@
                     JSON.stringify({
                         label: event.label,
                         year: event.year,
+                        participants: this.event.participants.map(element => element['@id']),
                     }),
                 )
                 .then( () => {
@@ -141,6 +151,12 @@
                     this.notify('error', 'Impossible de modifier l\'événement');
                     this.$emit('formValidated', true);
                 });
+            },
+            deleteParticipant(participantToDelete) {
+                this.event.participants = this
+                    .event
+                    .participants
+                    .filter(participant => participant.id !== participantToDelete.id);
             },
         }
     }
