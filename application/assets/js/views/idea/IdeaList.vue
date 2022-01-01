@@ -136,7 +136,7 @@
                 recipients: [],
                 filters: {},
                 showFilter: this.showMainFilter,
-                loading: true,
+                loading: false,
                 recipientsSearch: '',
             };
         },
@@ -166,6 +166,8 @@
         },
         methods: {
             fetchIdeas() {
+
+                this.loading = true;
 
                 let url = '/api/ideas';
                 const params = this.formatQueryParams(this.filters);

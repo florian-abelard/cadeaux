@@ -60,7 +60,7 @@
         data() {
             return {
                 events: [],
-                loading: true,
+                loading: false,
             };
         },
         created() {
@@ -68,6 +68,8 @@
         },
         methods: {
             fetchEvents() {
+
+                this.loading = true;
 
                 let url = '/api/events';
 
@@ -88,7 +90,7 @@
             deleteEvent(id) {
                 this.$http.delete('/api/events/' + id)
                 .then( () => {
-                    this.fetchGifts();
+                    this.fetchEvents();
                     this.notify('success', "L'événement a bien été supprimé");
                 })
                 .catch( error => {

@@ -150,7 +150,7 @@
                 years: [],
                 filters: {},
                 showFilter: this.showMainFilter,
-                loading: true,
+                loading: false,
                 recipientsSearch: '',
             };
         },
@@ -181,6 +181,8 @@
         },
         methods: {
             fetchGifts() {
+
+                this.loading = true;
 
                 let url = '/api/gifts';
                 const params = this.formatQueryParams(this.filters);
