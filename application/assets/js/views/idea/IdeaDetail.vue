@@ -42,6 +42,13 @@
                 >
                 </v-text-field>
 
+                <v-textarea
+                    v-model="idea.note"
+                    label="Note"
+                    :disabled="!editing"
+                    rows="3"
+                ></v-textarea>
+
             </v-form>
 
             <v-container class="mt-3 d-flex justify-center" v-if="!editing">
@@ -163,6 +170,7 @@
             create()
             {
                 const idea = this.idea;
+                console.log(idea);
 
                 this.$http.post(
                     '/api/ideas',
@@ -170,8 +178,9 @@
                         label: idea.label,
                         recipients: idea.recipientsUri,
                         price: {
-                            value: parseFloat(idea.price)
+                            value: parseFloat(idea.price.value)
                         },
+                        note: idea.note,
                     }),
                 )
                 .then( () => {
@@ -190,6 +199,7 @@
             update()
             {
                 const idea = this.idea;
+                console.log(idea);
 
                 this.$http.put(
                     '/api/ideas/' + idea.id,
@@ -197,8 +207,9 @@
                         label: idea.label,
                         recipients: idea.recipientsUri,
                         price: {
-                            value: parseFloat(idea.price)
+                            value: parseFloat(idea.price.value)
                         },
+                        note: idea.note,
                     }),
                 )
                 .then( () => {
@@ -247,13 +258,10 @@
     .form-reading >>> .v-input__slot::before {
         border-style: none;
     }
-    .form-reading >>> .theme--light.v-label--is-disabled {
-        color: rgba(0, 0, 0, .6);
-    }
-    .form-reading >>> .theme--light.v-input--is-disabled input {
-        color: rgba(0, 0, 0, .87);
-    }
-    .form-reading >>> input[type="text"][disabled] {
+    .form-reading >>> .theme--light.v-label--is-disabled,
+    .form-reading >>> .theme--light.v-input--is-disabled input,
+    .form-reading >>> input[type="text"][disabled],
+    .form-reading >>> textarea[disabled] {
         color: rgba(0, 0, 0, .87);
     }
     .form-reading >>> .theme--light.v-chip--disabled {
