@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      collectionOperations={"get", "post"},
  *      itemOperations={
  *          "get"={
- *              "normalization_context"={"groups"={"idea:read","idea:item:get"}},
+ *              "normalization_context"={"groups"={"idea:read","idea:read:item"}},
  *          },
  *          "put",
  *          "delete"
@@ -54,7 +54,7 @@ class Idea implements TimestampableInterface
      *
      * @Groups({
      *     "idea:read",
-     *     "idea:item:get"
+     *     "idea:read:item"
      * })
      */
     protected $id;
@@ -70,7 +70,7 @@ class Idea implements TimestampableInterface
      * @Groups({
      *     "idea:read",
      *     "idea:write",
-     *     "idea:item:get"
+     *     "idea:read:item"
      * })
      */
     private $label;
@@ -84,7 +84,7 @@ class Idea implements TimestampableInterface
      *
      * @Groups({
      *     "idea:write",
-     *     "idea:item:get"
+     *     "idea:read:item"
      * })
      */
     private $price;
@@ -99,7 +99,7 @@ class Idea implements TimestampableInterface
      * @Groups({
      *     "idea:read",
      *     "idea:write",
-     *     "idea:item:get"
+     *     "idea:read:item"
      * })
      */
     private $recipients;
@@ -111,7 +111,7 @@ class Idea implements TimestampableInterface
      *
      * @Groups({
      *     "idea:write",
-     *     "idea:item:get"
+     *     "idea:read:item"
      * })
      */
     private $note;

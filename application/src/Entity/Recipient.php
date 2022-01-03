@@ -30,9 +30,9 @@ class Recipient
      *
      * @Groups({
      *     "idea:read",
-     *     "idea:item:get",
+     *     "idea:read:item",
      *     "gift:read",
-     *     "event:item:get"
+     *     "event:read:item"
      * })
      */
     private $id;
@@ -42,9 +42,9 @@ class Recipient
      *
      * @Groups({
      *     "idea:read",
-     *     "idea:item:get",
+     *     "idea:read:item",
      *     "gift:read",
-     *     "event:item:get"
+     *     "event:read:item"
      * })
      */
     private $name;

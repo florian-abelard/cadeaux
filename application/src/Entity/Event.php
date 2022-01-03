@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      collectionOperations={"get", "post"},
  *      itemOperations={
  *          "get"={
- *              "normalization_context"={"groups"={"event:read","event:item:get"}},
+ *              "normalization_context"={"groups"={"event:read","event:read:item"}},
  *          },
  *          "put",
  *          "delete"
@@ -45,7 +45,7 @@ class Event implements TimestampableInterface
      *
      * @Groups({
      *     "event:read",
-     *     "event:item:get"
+     *     "event:read:item"
      * })
      */
     protected $id;
@@ -61,7 +61,7 @@ class Event implements TimestampableInterface
      * @Groups({
      *     "event:read",
      *     "event:write",
-     *     "event:item:get"
+     *     "event:read:item"
      * })
      */
     private $label;
@@ -76,7 +76,7 @@ class Event implements TimestampableInterface
      * @Groups({
      *     "event:read",
      *     "event:write",
-     *     "event:item:get",
+     *     "event:read:item",
      * })
      */
     private $year;
@@ -91,7 +91,7 @@ class Event implements TimestampableInterface
      * @Groups({
      *     "event:read",
      *     "event:write",
-     *     "event:item:get"
+     *     "event:read:item"
      * })
      */
     private $participants;
