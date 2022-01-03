@@ -63,7 +63,9 @@
         },
         data() {
             return {
-                event: [],
+                event: {
+                    participants: [],
+                },
                 loading: false,
             };
         },
@@ -162,7 +164,7 @@
             },
             addParticipants(participantsToAdd) {
                 const participants = [
-                    ...this.event.participants,
+                    ...this.event.participants ?? [],
                     ...participantsToAdd,
                 ];
 
