@@ -18,7 +18,7 @@
 
                         <v-list-item-action>
 
-                            <v-list-item-action-text v-text="event.year"></v-list-item-action-text>
+                            <v-chip small>{{ event.year }}</v-chip>
 
                             <v-btn icon small v-on:click="deleteEvent(event.id)">
                                 <v-icon color="grey lighten-1">mdi-delete</v-icon>

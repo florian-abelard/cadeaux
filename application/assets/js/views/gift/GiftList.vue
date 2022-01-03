@@ -101,7 +101,7 @@
 
                         <v-list-item-action>
 
-                            <v-list-item-action-text v-text="gift.eventYear"></v-list-item-action-text>
+                            <v-chip small>{{ gift.eventYear }}</v-chip>
 
                             <v-btn icon small v-on:click="deleteGift(gift.id)">
                                 <v-icon color="grey lighten-1">mdi-delete</v-icon>
