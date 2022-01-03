@@ -181,18 +181,6 @@ class Gift implements TimestampableInterface
         return $this;
     }
 
-    public function getNote(): ?string
-    {
-        return $this->note;
-    }
-
-    public function setNote(?string $note): self
-    {
-        $this->note = $note;
-
-        return $this;
-    }
-
     public function getEventYear(): ?string
     {
         return $this->eventYear;
@@ -201,6 +189,18 @@ class Gift implements TimestampableInterface
     public function setEventYear(?string $eventYear): self
     {
         $this->eventYear = $eventYear;
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
 
         return $this;
     }
