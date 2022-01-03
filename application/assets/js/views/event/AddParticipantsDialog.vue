@@ -15,15 +15,20 @@
                 <v-card-text>
                     <p>Pouet</p>
 
-                    <v-select
-                        v-model="groupToAdd"
+                    <v-autocomplete
+                        v-model="groupsToAdd"
                         :items="groups"
-                        label="Groupe"
                         item-text="label"
                         return-object
-                        clearable
-                    >
-                    </v-select>
+                        :search-input.sync="groupsSearch"
+                        @change="groupsSearch = ''"
+                        small-chips
+                        deletable-chips
+                        label="Groupes"
+                        multiple
+                        auto-select-first
+                        :menu-props="{ closeOnContentClick: true }"
+                    ></v-autocomplete>
 
                     <v-autocomplete
                         v-model="participantsToAdd"
@@ -74,10 +79,11 @@
         },
         data() {
             return {
-                groupToAdd: {},
+                groupsToAdd: [],
                 participantsToAdd: [],
-                recipients: [],
                 groups: [],
+                recipients: [],
+                groupsSearch: '',
                 recipientsSearch: '',
             };
         },
@@ -98,7 +104,7 @@
         methods: {
             fetchGroups()
             {
-                this.$http.get('/api/groups')
+                this.$http.get('/api/groups?groups[]=group:read&groups[]=group:read:members')
                 .then( response => {
                     this.groups = response.data['hydra:member'];
                 })
@@ -122,12 +128,19 @@
             },
             validate() {
                 const participantsToAdd = [
+                    ...this.getParticipantsFromGroups(this.groupsToAdd),
                     ...this.participantsToAdd,
                 ];
                 this.participantsToAdd = [];
-                this.groupToAdd = {};
+                this.groupsToAdd = [];
 
                 this.$emit('participantsAdded', participantsToAdd);
+            },
+            getParticipantsFromGroups(groups) {
+                return groups
+                    .map(group => group.members)
+                    .flat()
+                ;
             },
         }
     }

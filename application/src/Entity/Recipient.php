@@ -12,6 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ApiResource(
  *     collectionOperations={"get"},
+ *     normalizationContext={"groups"={"recipient:read"}},
+ *     denormalizationContext={"groups"={"recipient:write"}},
  *     attributes={
  *         "order"={"name": "ASC"},
  *         "pagination_enabled"=false
@@ -29,10 +31,12 @@ class Recipient
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      *
      * @Groups({
+     *     "recipient:read",
      *     "idea:read",
      *     "idea:read:item",
      *     "gift:read",
-     *     "event:read:item"
+     *     "event:read:item",
+     *     "group:read:members",
      * })
      */
     private $id;
@@ -41,10 +45,12 @@ class Recipient
      * @ORM\Column(type="string", length=255)
      *
      * @Groups({
+     *     "recipient:read",
      *     "idea:read",
      *     "idea:read:item",
      *     "gift:read",
-     *     "event:read:item"
+     *     "event:read:item",
+     *     "group:read:members",
      * })
      */
     private $name;

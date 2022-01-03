@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
@@ -14,8 +17,16 @@ use Ramsey\Uuid\UuidInterface;
  *
  * @ApiResource(
  *     collectionOperations={"get"},
+ *     normalizationContext={"groups"={"group:read"}},
+ *     denormalizationContext={"groups"={"group:write"}},
  *     attributes={"order"={"label": "ASC"}},
  * )
+ *
+ * @ApiFilter(GroupFilter::class, arguments={
+ *      "parameterName": "groups",
+ *      "overrideDefaultGroups": "false",
+ *      "whitelist": {"group:read", "group:read:members"},
+ * })
  */
 class Group
 {
@@ -26,16 +37,30 @@ class Group
      * @ORM\Column(type="uuid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
      * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
+     *
+     * @Groups({
+     *     "group:read",
+     *     "group:read:item",
+     * })
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups({
+     *     "group:read",
+     *     "group:read:item",
+     * })
      */
     private $label;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Recipient", mappedBy="group")
+     *
+     * @Groups({
+     *     "group:read:members",
+     * })
      */
     private $members;
 
