@@ -29,6 +29,7 @@
                     :participants="event.participants"
                     :editing="editing"
                     v-on:participantDeleted="deleteParticipant"
+                    v-on:participantsAdded="addParticipants"
                 />
 
             </v-form>
@@ -48,6 +49,7 @@
 
     import FormSkeletonLoader from '../../components/loaders/FormSkeletonLoader.vue';
     import ParticipantList from './ParticipantList.vue';
+    import { deduplicateArrayBy } from '../../functions/deduplicate-array-by'
 
     export default {
         name: "EventDetail",
@@ -157,6 +159,14 @@
                     .event
                     .participants
                     .filter(participant => participant.id !== participantToDelete.id);
+            },
+            addParticipants(participantsToAdd) {
+                const participants = [
+                    ...this.event.participants,
+                    ...participantsToAdd,
+                ];
+
+                this.event.participants = deduplicateArrayBy(participants, 'id')
             },
         }
     }

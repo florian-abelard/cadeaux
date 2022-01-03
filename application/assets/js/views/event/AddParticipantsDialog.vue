@@ -5,37 +5,40 @@
         max-width="300"
         >
         <v-form
-            ref="giftDialogForm"
             v-on:submit.prevent="validate"
         >
             <v-card>
                 <v-card-title class="headline">
-                    Création du cadeau
+                    Ajouter des participants
                 </v-card-title>
 
                 <v-card-text>
-                    <p>Choisis le ou les destinataire(s) du cadeau. L'idée cadeau sera mise à jour automatiquement. <br/>
-                    Si plus aucun destinataire n'est associé à l'idée cadeau, elle sera supprimée.</p>
+                    <p>Pouet</p>
+
+                    <v-select
+                        v-model="groupToAdd"
+                        :items="groups"
+                        label="Groupe"
+                        item-text="label"
+                        return-object
+                        clearable
+                    >
+                    </v-select>
+
                     <v-autocomplete
-                        v-model="gift.recipientsUri"
+                        v-model="participantsToAdd"
                         :items="recipients"
                         item-text="name"
-                        item-value="@id"
+                        return-object
                         :search-input.sync="recipientsSearch"
                         @change="recipientsSearch = ''"
                         small-chips
                         deletable-chips
-                        label="Destinataires"
+                        label="Participants"
                         multiple
                         auto-select-first
                         :menu-props="{ closeOnContentClick: true }"
                     ></v-autocomplete>
-
-                    <v-text-field
-                        v-model="gift.eventYear"
-                        label="Année de l'évènement"
-                    >
-                    </v-text-field>
                 </v-card-text>
 
                 <v-card-actions>
@@ -68,27 +71,19 @@
     export default {
         props: {
             value: Boolean,
-            ideaRecipientsUri: {},
-            recipients: Array,
         },
         data() {
             return {
-                gift: {
-                    recipientsUri: [],
-                    eventYear: ''
-                },
+                groupToAdd: {},
+                participantsToAdd: [],
+                recipients: [],
+                groups: [],
                 recipientsSearch: '',
             };
         },
         created() {
-            this.gift.recipientsUri = this.ideaRecipientsUri;
-        },
-        watch: {
-            ideaRecipientsUri: {
-                handler(value) {
-                    this.gift.recipientsUri = value;
-                },
-            },
+            this.fetchGroups();
+            this.fetchRecipients();
         },
         computed: {
             show: {
@@ -101,8 +96,38 @@
             }
         },
         methods: {
+            fetchGroups()
+            {
+                this.$http.get('/api/groups')
+                .then( response => {
+                    this.groups = response.data['hydra:member'];
+                })
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
+                    this.notify('error', "Impossible de récupérer les groupes");
+                });
+            },
+            fetchRecipients()
+            {
+                this.$http.get('/api/recipients')
+                .then( response => {
+                    this.recipients = response.data['hydra:member'];
+                })
+                .catch( error => {
+                    if (error.response.status === 401) return;
+
+                    this.notify('error', "Impossible de récupérer les destinataires");
+                });
+            },
             validate() {
-                this.$emit('giftFromIdeaValidated', this.gift);
+                const participantsToAdd = [
+                    ...this.participantsToAdd,
+                ];
+                this.participantsToAdd = [];
+                this.groupToAdd = {};
+
+                this.$emit('participantsAdded', participantsToAdd);
             },
         }
     }

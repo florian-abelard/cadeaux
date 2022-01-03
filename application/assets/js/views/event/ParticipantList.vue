@@ -3,9 +3,23 @@
 
         <v-container v-if="!loading" justify-center class="pa-0">
 
-            Participants
+            <div class="participant-list-header" justify="space-between">
+                <span>Participants</span>
 
-            <v-list>
+                <v-btn
+                    class="mx-2"
+                    fab
+                    small
+                    dark
+                    color="teal darken-1"
+                    v-if="editing"
+                    v-on:click="openAddParticipantsDialog()"
+                >
+                    <v-icon dark>mdi-plus</v-icon>
+                </v-btn>
+            </div>
+
+            <v-list dense>
                 <template v-for="(participant, index) in participants">
 
                     <v-list-item :key="participant.id">
@@ -37,12 +51,20 @@
 
         </v-container>
 
+        <add-participants-dialog
+            v-model="showAddParticipantsDialog"
+            v-on:participantsAdded="addParticipants"
+        />
+
     </v-container>
 </template>
 
 <script>
 
+    import AddParticipantsDialog from './AddParticipantsDialog.vue';
+
     export default {
+        components: { AddParticipantsDialog },
         name: "ParticipantList",
         props: {
             participants: Array,
@@ -51,11 +73,20 @@
         data() {
             return {
                 loading: false,
+                showAddParticipantsDialog: false,
             };
         },
         methods: {
-            deleteParticipant(participant) {
-                this.$emit('participantDeleted', participant);
+            deleteParticipant(participantToDelete) {
+                this.$emit('participantDeleted', participantToDelete);
+            },
+            addParticipants(participantsToAdd) {
+                this.showAddParticipantsDialog = false
+                this.$emit('participantsAdded', participantsToAdd);
+            },
+            openAddParticipantsDialog()
+            {
+                this.showAddParticipantsDialog = true;
             },
         }
     }
@@ -63,4 +94,11 @@
 </script>
 
 <style scoped>
+
+    .participant-list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
 </style>

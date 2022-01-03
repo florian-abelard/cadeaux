@@ -76,7 +76,6 @@
                 this.$http.get(url)
                 .then( response => {
                     this.events = response.data['hydra:member'];
-                    console.log(this.events)
                 })
                 .catch( error => {
                     if (error.response.status === 401) return;
