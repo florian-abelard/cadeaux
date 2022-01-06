@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Idea;
+use App\Entity\Recipient;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +48,14 @@ class IdeaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByRecipient(Recipient $recipient): array
+    {
+        return $this->createQueryBuilder('i')
+            ->where(':recipient member of i.recipients')
+            ->setParameters(['recipient' => $recipient])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

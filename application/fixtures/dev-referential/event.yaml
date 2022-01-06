@@ -1,0 +1,11 @@
+App\Entity\Event:
+  event-noelVerlaguet2021:
+    label: 'Noël Verlaguet'
+    year: '2021'
+    participants: ['@recipient-roxane', '@recipient-colin', '@recipient-maud', '@recipient-florian', '@recipient-mamini', '@recipient-papiphi']
+  event-noelAbelard2021:
+    label: 'Noël Abélard'
+    year: '2021'
+    participants: ['@recipient-papi', '@recipient-mamiflo', '@recipient-clementine', '@recipient-juliette']
+
+

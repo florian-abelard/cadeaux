@@ -20,9 +20,9 @@ final class Price
      *
      * @Groups({
      *     "idea:write",
-     *     "idea:item:get",
+     *     "idea:read:item",
      *     "gift:write",
-     *     "gift:item:get",
+     *     "gift:read:item",
      * })
      */
     private $value;
