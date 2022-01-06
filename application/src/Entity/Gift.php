@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      collectionOperations={"get", "post"},
  *      itemOperations={
  *          "get"={
- *              "normalization_context"={"groups"={"gift:read","gift:item:get"}},
+ *              "normalization_context"={"groups"={"gift:read","gift:read:item"}},
  *          },
  *          "put",
  *          "delete"
@@ -55,7 +55,7 @@ class Gift implements TimestampableInterface
      *
      * @Groups({
      *     "gift:read",
-     *     "gift:item:get",
+     *     "gift:read:item",
      * })
      */
     private $id;
@@ -66,7 +66,7 @@ class Gift implements TimestampableInterface
      * @Groups({
      *     "gift:read",
      *     "gift:write",
-     *     "gift:item:get",
+     *     "gift:read:item",
      * })
      */
     private $label;
@@ -80,7 +80,7 @@ class Gift implements TimestampableInterface
      *
      * @Groups({
      *     "gift:write",
-     *     "gift:item:get",
+     *     "gift:read:item",
      * })
      */
     private $price;
@@ -95,7 +95,7 @@ class Gift implements TimestampableInterface
      * @Groups({
      *     "gift:read",
      *     "gift:write",
-     *     "gift:item:get",
+     *     "gift:read:item",
      * })
      */
     private $recipients;
@@ -110,7 +110,7 @@ class Gift implements TimestampableInterface
      * @Groups({
      *     "gift:read",
      *     "gift:write",
-     *     "gift:item:get",
+     *     "gift:read:item",
      * })
      */
     private $eventYear;
@@ -122,7 +122,7 @@ class Gift implements TimestampableInterface
      *
      * @Groups({
      *     "gift:write",
-     *     "gift:item:get",
+     *     "gift:read:item",
      * })
      */
     private $note;

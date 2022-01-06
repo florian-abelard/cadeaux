@@ -1,23 +1,4 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#99ffff",
-        "activityBar.activeBackground": "#99ffff",
-        "activityBar.activeBorder": "#ff60ff",
-        "activityBar.foreground": "#15202b",
-        "activityBar.inactiveForeground": "#15202b99",
-        "activityBarBadge.background": "#ff60ff",
-        "activityBarBadge.foreground": "#15202b",
-        "titleBar.activeBackground": "#66ffff",
-        "titleBar.inactiveBackground": "#66ffff99",
-        "titleBar.activeForeground": "#15202b",
-        "titleBar.inactiveForeground": "#15202b99",
-        "statusBar.background": "#66ffff",
-        "statusBarItem.hoverBackground": "#33ffff",
-        "statusBar.foreground": "#15202b",
-        "sash.hoverBorder": "#99ffff",
-        "statusBarItem.remoteBackground": "#66ffff",
-        "statusBarItem.remoteForeground": "#15202b"
-    },
     "peacock.color": "#66ffff",
     "sqltools.connections": [
         {
@@ -29,5 +10,25 @@
             "server": "db",
             "username": "postgres"
         }
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#00b3b3",
+        "activityBar.activeBorder": "#bf00bf",
+        "activityBar.background": "#00b3b3",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#bf00bf",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "sash.hoverBorder": "#00b3b3",
+        "statusBar.background": "#008080",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#00b3b3",
+        "statusBarItem.remoteBackground": "#008080",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#008080",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#00808099",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.remoteColor": "teal"
 }

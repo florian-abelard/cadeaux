@@ -26,7 +26,7 @@
                                 :items="groups"
                                 label="Groupe"
                                 item-text="label"
-                                item-value="@id"
+                                item-value="id"
                                 clearable
                             >
                             </v-select>
@@ -35,7 +35,7 @@
                                 v-model="filters['recipients.id[]']"
                                 :items="recipients"
                                 item-text="name"
-                                item-value="@id"
+                                item-value="id"
                                 :search-input.sync="recipientsSearch"
                                 @change="recipientsSearch = ''"
                                 small-chips
@@ -136,7 +136,7 @@
                 recipients: [],
                 filters: {},
                 showFilter: this.showMainFilter,
-                loading: true,
+                loading: false,
                 recipientsSearch: '',
             };
         },
@@ -166,6 +166,8 @@
         },
         methods: {
             fetchIdeas() {
+
+                this.loading = true;
 
                 let url = '/api/ideas';
                 const params = this.formatQueryParams(this.filters);

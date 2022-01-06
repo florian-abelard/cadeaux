@@ -6,6 +6,8 @@ import IdeaList from "../views/idea/IdeaList";
 import IdeaDetail from "../views/idea/IdeaDetail";
 import GiftList from "../views/gift/GiftList";
 import GiftDetail from "../views/gift/GiftDetail";
+import EventList from "../views/event/EventList";
+import EventDetail from "../views/event/EventDetail";
 
 Vue.use(VueRouter);
 
@@ -54,6 +56,23 @@ export default new VueRouter({
             path: "/gifts/:id",
             name: 'giftDetail',
             component: GiftDetail,
+            meta: { showBackButton: true, formMode: 'edit' },
+        },
+        {
+            path: "/events",
+            name: 'eventList',
+            component: EventList,
+        },
+        {
+            path: "/events/create",
+            name: 'eventCreate',
+            component: EventDetail,
+            meta: { showBackButton: true, formMode: 'create' },
+        },
+        {
+            path: "/events/:id",
+            name: 'eventDetail',
+            component: EventDetail,
             meta: { showBackButton: true, formMode: 'edit' },
         },
         { path: "*", redirect: "/" }
