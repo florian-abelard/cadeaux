@@ -26,7 +26,7 @@
                                 :items="groups"
                                 label="Groupe"
                                 item-text="label"
-                                item-value="@id"
+                                item-value="id"
                                 clearable
                             >
                             </v-select>
@@ -35,7 +35,7 @@
                                 v-model="filters['recipients.id[]']"
                                 :items="recipients"
                                 item-text="name"
-                                item-value="@id"
+                                item-value="id"
                                 :search-input.sync="recipientsSearch"
                                 @change="recipientsSearch = ''"
                                 small-chips

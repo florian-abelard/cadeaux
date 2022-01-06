@@ -170,7 +170,6 @@
             create()
             {
                 const idea = this.idea;
-                console.log(idea);
 
                 this.$http.post(
                     '/api/ideas',
@@ -199,7 +198,6 @@
             update()
             {
                 const idea = this.idea;
-                console.log(idea);
 
                 this.$http.put(
                     '/api/ideas/' + idea.id,

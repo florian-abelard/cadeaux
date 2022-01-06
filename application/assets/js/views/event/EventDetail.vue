@@ -26,7 +26,7 @@
                 </v-text-field>
 
                 <participant-list
-                    :participants="event.participants"
+                    :event="event"
                     :editing="editing"
                     v-on:participantDeleted="deleteParticipant"
                     v-on:participantsAdded="addParticipants"

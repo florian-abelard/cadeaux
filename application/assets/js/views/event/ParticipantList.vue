@@ -20,7 +20,7 @@
             </div>
 
             <v-list dense>
-                <template v-for="(participant, index) in participants">
+                <template v-for="(participant, index) in event.participants">
 
                     <v-list-item :key="participant.id">
 
@@ -37,7 +37,7 @@
                                 small
                                 v-if="!editing"
                                 :disabled="participant.ideas.length === 0"
-                                v-on:click="gotoIdeas(participant)"
+                                v-on:click="gotoFilteredIdeas(participant)"
                             >
                                 <v-icon color="lighten-1">mdi-lightbulb-on-outline</v-icon>
                             </v-btn>
@@ -47,7 +47,7 @@
                                 small
                                 v-if="!editing"
                                 :disabled="participant.gifts.length === 0"
-                                v-on:click="gotoGifts(participant)"
+                                v-on:click="gotoFilteredGifts(participant)"
                             >
                                 <v-icon color="lighten-1">mdi-gift-outline</v-icon>
                             </v-btn>
@@ -65,7 +65,7 @@
 
                     </v-list-item>
 
-                    <v-divider v-if="index + 1 < participants.length" :key="index"></v-divider>
+                    <v-divider v-if="index + 1 < event.participants.length" :key="index"></v-divider>
                 </template>
             </v-list>
 
@@ -87,7 +87,7 @@
         components: { AddParticipantsDialog },
         name: "ParticipantList",
         props: {
-            participants: Array,
+            event: Object,
             editing: Boolean,
         },
         data() {
@@ -108,14 +108,24 @@
             {
                 this.showAddParticipantsDialog = true;
             },
-            gotoIdeas(participant)
+            gotoFilteredIdeas(participant)
             {
-                console.log('goToIdeas');
+                const filters = {
+                    'recipients.id[]': participant.id,
+                };
+                this.$store.commit('saveFilters', filters);
 
+                this.$router.push({ name: 'ideaList' });
             },
-            gotoGifts(participant)
+            gotoFilteredGifts(participant)
             {
-                console.log('gotoGifts');
+                const filters = {
+                    'recipients.id[]': participant.id,
+                    'eventYear': [this.event.year],
+                };
+                this.$store.commit('saveFilters', filters);
+
+                this.$router.push({ name: 'giftList' });
             },
         }
     }
