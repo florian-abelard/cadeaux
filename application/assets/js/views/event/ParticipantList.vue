@@ -30,7 +30,7 @@
 
                         </v-list-item-content>
 
-                        <v-list-item-action>
+                        <v-list-item-action class="flex-row">
 
                             <v-btn
                                 icon
@@ -39,7 +39,7 @@
                                 :disabled="participant.ideas.length === 0"
                                 v-on:click="gotoFilteredIdeas(participant)"
                             >
-                                <v-icon color="lighten-1">mdi-lightbulb-on-outline</v-icon>
+                                <v-icon color="teal darken-1">mdi-lightbulb-on-outline</v-icon>
                             </v-btn>
 
                             <v-btn
@@ -49,7 +49,7 @@
                                 :disabled="participant.gifts.length === 0"
                                 v-on:click="gotoFilteredGifts(participant)"
                             >
-                                <v-icon color="lighten-1">mdi-gift-outline</v-icon>
+                                <v-icon color="teal darken-1">mdi-gift-outline</v-icon>
                             </v-btn>
 
                             <v-btn
