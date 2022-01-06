@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Event;
 use App\Entity\Gift;
+use App\Entity\Recipient;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +49,20 @@ class GiftRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByRecipientAndEvent(
+        Recipient $recipient,
+        Event $event
+    ): array {
+        return $this->createQueryBuilder('g')
+            ->andWhere(':recipient member of g.recipients')
+            ->andWhere('g.eventYear = :year')
+            ->setParameters([
+                'recipient' => $recipient,
+                'year' => $event->getYear(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

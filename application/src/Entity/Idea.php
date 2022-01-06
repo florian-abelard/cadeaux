@@ -54,7 +54,8 @@ class Idea implements TimestampableInterface
      *
      * @Groups({
      *     "idea:read",
-     *     "idea:read:item"
+     *     "idea:read:item",
+     *     "event:read:item"
      * })
      */
     protected $id;

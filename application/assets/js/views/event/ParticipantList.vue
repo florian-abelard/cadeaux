@@ -35,6 +35,26 @@
                             <v-btn
                                 icon
                                 small
+                                v-if="!editing"
+                                :disabled="participant.ideas.length === 0"
+                                v-on:click="gotoIdeas(participant)"
+                            >
+                                <v-icon color="lighten-1">mdi-lightbulb-on-outline</v-icon>
+                            </v-btn>
+
+                            <v-btn
+                                icon
+                                small
+                                v-if="!editing"
+                                :disabled="participant.gifts.length === 0"
+                                v-on:click="gotoGifts(participant)"
+                            >
+                                <v-icon color="lighten-1">mdi-gift-outline</v-icon>
+                            </v-btn>
+
+                            <v-btn
+                                icon
+                                small
                                 v-if="editing"
                                 v-on:click="deleteParticipant(participant)"
                             >
@@ -87,6 +107,15 @@
             openAddParticipantsDialog()
             {
                 this.showAddParticipantsDialog = true;
+            },
+            gotoIdeas(participant)
+            {
+                console.log('goToIdeas');
+
+            },
+            gotoGifts(participant)
+            {
+                console.log('gotoGifts');
             },
         }
     }
