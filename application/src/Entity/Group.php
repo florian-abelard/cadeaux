@@ -40,7 +40,6 @@ class Group
      *
      * @Groups({
      *     "group:read",
-     *     "group:read:item",
      * })
      */
     private $id;
@@ -50,7 +49,6 @@ class Group
      *
      * @Groups({
      *     "group:read",
-     *     "group:read:item",
      * })
      */
     private $label;
@@ -63,6 +61,17 @@ class Group
      * })
      */
     private $members;
+
+    /**
+     * @ORM\Column(type="string", length=31, nullable=true)
+     *
+     * @Groups({
+     *     "group:read",
+     *     "idea:read",
+     *     "gift:read",
+     * })
+     */
+    private $colorCode;
 
     public function __construct()
     {
@@ -101,6 +110,18 @@ class Group
     public function removeMember(Recipient $recipient): self
     {
         $this->members->removeElement($recipient);
+
+        return $this;
+    }
+
+    public function getColorCode(): ?string
+    {
+        return $this->colorCode;
+    }
+
+    public function setColorCode(?string $colorCode): self
+    {
+        $this->colorCode = $colorCode;
 
         return $this;
     }
