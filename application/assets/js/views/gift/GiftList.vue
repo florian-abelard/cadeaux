@@ -91,7 +91,12 @@
                                 <v-list-item-title v-text="gift.label"></v-list-item-title>
 
                                 <v-list-item-subtitle v-if="gift.recipients.length > 0">
-                                    <v-chip v-for="recipient in gift.recipients"  v-bind:key="recipient.id" small>
+                                    <v-chip
+                                        v-for="recipient in gift.recipients"
+                                        v-bind:key="recipient.id"
+                                        small
+                                        :color="recipient.group.colorCode"
+                                    >
                                         {{ recipient.name }}
                                     </v-chip>
                                 </v-list-item-subtitle>
