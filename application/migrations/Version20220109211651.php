@@ -20,7 +20,7 @@ final class Version20220109211651 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        // $this->addSql('ALTER TABLE "group" ADD color_code VARCHAR(31) DEFAULT NULL');
+        $this->addSql('ALTER TABLE "group" ADD color_code VARCHAR(31) DEFAULT NULL');
 
         $this->addSql(
             <<<'SQL'
