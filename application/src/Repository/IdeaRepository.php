@@ -20,35 +20,6 @@ class IdeaRepository extends ServiceEntityRepository
         parent::__construct($registry, Idea::class);
     }
 
-    // /**
-    //  * @return Idea[] Returns an array of Idea objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Idea
-    {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
     public function findByRecipient(Recipient $recipient): array
     {
         return $this->createQueryBuilder('i')
