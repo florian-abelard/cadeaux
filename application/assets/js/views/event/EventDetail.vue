@@ -14,20 +14,20 @@
                     label="Libellé"
                     required
                     :rules="[value => !!value || 'Le libellé est obligatoire']"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <v-text-field
                     v-model="event.year"
                     label="Année de l'évènement"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <participant-list
                     :event="event"
-                    :editing="editing"
+                    :readonly="editing"
                     v-on:participantDeleted="deleteParticipant"
                     v-on:participantsAdded="addParticipants"
                 />

@@ -15,12 +15,12 @@
                     label="Libellé"
                     required
                     :rules="[value => !!value || 'Le libellé est obligatoire']"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <v-autocomplete
-                    :disabled="!editing"
+                    :readonly="!editing"
                     v-model="idea.recipientsUri"
                     :items="recipients"
                     item-text="name"
@@ -38,14 +38,14 @@
                 <v-text-field
                     v-model="idea.price.value"
                     label="Prix"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <v-textarea
                     v-model="idea.note"
                     label="Note"
-                    :disabled="!editing"
+                    :readonly="!editing"
                     rows="3"
                 ></v-textarea>
 
