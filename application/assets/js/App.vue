@@ -22,7 +22,7 @@
                 <v-icon>mdi-square-edit-outline</v-icon>
             </v-btn>
 
-            <v-btn icon v-if="showValidateButton()" @click="submitForm = true">
+            <v-btn icon v-if="showValidateButton()" @click="validateForm = true">
                 <v-icon>mdi-check</v-icon>
             </v-btn>
 
@@ -102,7 +102,7 @@
                 <router-view
                     :editing="editing"
                     :showFilterDrawer="showFilterDrawer"
-                    :submitForm="submitForm"
+                    :validateForm="validateForm"
                     v-on:authenticationSuccess="onAuthenticationSuccess"
                     v-on:formValidated="onFormValidated"
                     v-on:formCreated="onFormCreated"
@@ -127,7 +127,7 @@
             showMenu: false,
             showFilterDrawer: false,
             editing: false,
-            submitForm: false
+            validateForm: false
         }),
         mounted() {
             this.authenticated = window.authenticated;
@@ -144,7 +144,7 @@
                 if (!error) {
                     this.editing = false;
                 }
-                this.submitForm = false;
+                this.validateForm = false;
             },
             onFormCreated() {
                 if (this.$route.meta.formMode === 'create') {

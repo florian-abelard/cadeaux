@@ -46,7 +46,7 @@
         name: "Login",
         props: {
             editing: false,
-            submitForm: false
+            validateForm: false
         },
         data() {
             return {

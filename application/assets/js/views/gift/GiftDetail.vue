@@ -76,7 +76,7 @@
         name: "GiftDetail",
         props: {
             editing: false,
-            submitForm: false
+            validateForm: false
         },
         components: {
             FormSkeletonLoader,
@@ -99,8 +99,8 @@
             this.$emit('formCreated');
         },
         watch: {
-            submitForm: function () {
-                if (this.submitForm) {
+            validateForm: function () {
+                if (this.validateForm) {
                     this.onSubmit();
                 }
             }
