@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0">
 
-        <v-navigation-drawer v-model="showFilter" fixed right width=300 temporary hide-overlay>
+        <v-navigation-drawer v-model="showFilterDrawer" fixed right width=300 temporary hide-overlay>
 
             <div class="drawer-container">
 
@@ -75,7 +75,7 @@
 
                     <v-list-item :key="idea.id" :style="{ cursor: 'pointer' }">
 
-                        <router-link v-bind:to="'/ideas/' + idea.id" v-slot="{ href, navigate }" :disabled="showFilter">
+                        <router-link v-bind:to="'/ideas/' + idea.id" v-slot="{ href, navigate }">
                             <v-list-item-content :href="href" v-on:click="navigate">
 
                                 <v-list-item-title v-text="idea.label"></v-list-item-title>
@@ -129,7 +129,7 @@
 
     export default {
         name: "IdeaList",
-        props: ['showMainFilter'],
+        props: ['showFilterDrawer'],
         mixins: [filterMixin],
         components: {
             ListSkeletonLoader
@@ -140,7 +140,6 @@
                 groups: [],
                 recipients: [],
                 filters: {},
-                showFilter: this.showMainFilter,
                 loading: false,
                 recipientsSearch: '',
             };
@@ -157,16 +156,6 @@
                     this.$store.commit('saveFilters', value);
                 },
                 deep: true
-            },
-            showMainFilter: {
-                handler(value) {
-                    this.showFilter = value;
-                },
-            },
-            showFilter: {
-                handler(value) {
-                    this.$emit('showMainFilterUpdated', value);
-                },
             },
         },
         methods: {

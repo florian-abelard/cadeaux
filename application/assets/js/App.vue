@@ -26,7 +26,7 @@
                 <v-icon>mdi-check</v-icon>
             </v-btn>
 
-            <v-btn icon v-if="['ideaList', 'giftList'].includes($route.name)" @click.stop="showMainFilter = !showMainFilter">
+            <v-btn icon v-if="showFilterButton()" @click.stop="showFilterDrawer = !showFilterDrawer">
                 <v-icon>mdi-filter-outline</v-icon>
             </v-btn>
 
@@ -101,12 +101,11 @@
 
                 <router-view
                     :editing="editing"
-                    :showMainFilter="showMainFilter"
+                    :showFilterDrawer="showFilterDrawer"
                     :submitForm="submitForm"
                     v-on:authenticationSuccess="onAuthenticationSuccess"
                     v-on:formValidated="onFormValidated"
                     v-on:formCreated="onFormCreated"
-                    v-on:showMainFilterUpdated="onShowMainFilterUpdated"
                 ></router-view>
 
             </v-container>
@@ -126,7 +125,7 @@
         data: () => ({
             authenticated: false,
             showMenu: false,
-            showMainFilter: false,
+            showFilterDrawer: false,
             editing: false,
             submitForm: false
         }),
@@ -153,9 +152,6 @@
                 } else {
                     this.editing = false;
                 }
-            },
-            onShowMainFilterUpdated(value) {
-                this.showMainFilter = value;
             },
             showBackButton() {
                 return this.$route.meta.showBackButton;
