@@ -1,11 +1,16 @@
 App\Entity\Group:
   group1:
     label: 'Famille Moflo'
+    colorCode: 'amber lighten-1'
   group2:
     label: 'Famille Abélard'
+    colorCode: 'red lighten-2'
   group3:
     label: 'Famille Verlaguet'
+    colorCode: 'green lighten-2'
   group4:
     label: 'Famille Lasterre'
+    colorCode: 'light-blue lighten-3'
   group5:
     label: 'Amis'
+    colorCode: 'blue-grey lighten-2'

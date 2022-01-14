@@ -96,6 +96,11 @@
                 showAddParticipantsDialog: false,
             };
         },
+        computed: {
+            editing () {
+                return this.$store.state.editing;
+            },
+        },
         methods: {
             deleteParticipant(participantToDelete) {
                 this.$emit('participantDeleted', participantToDelete);
@@ -113,7 +118,7 @@
                 const filters = {
                     'recipients.id[]': participant.id,
                 };
-                this.$store.commit('saveFilters', filters);
+                this.$store.commit('updateFilters', filters);
 
                 this.$router.push({ name: 'ideaList' });
             },
@@ -123,7 +128,7 @@
                     'recipients.id[]': participant.id,
                     'eventYear': [this.event.year],
                 };
-                this.$store.commit('saveFilters', filters);
+                this.$store.commit('updateFilters', filters);
 
                 this.$router.push({ name: 'giftList' });
             },

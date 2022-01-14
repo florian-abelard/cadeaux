@@ -14,20 +14,19 @@
                     label="Libellé"
                     required
                     :rules="[value => !!value || 'Le libellé est obligatoire']"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <v-text-field
                     v-model="event.year"
                     label="Année de l'évènement"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <participant-list
                     :event="event"
-                    :editing="editing"
                     v-on:participantDeleted="deleteParticipant"
                     v-on:participantsAdded="addParticipants"
                 />
@@ -53,10 +52,6 @@
 
     export default {
         name: "EventDetail",
-        props: {
-            editing: false,
-            submitForm: false
-        },
         components: {
             FormSkeletonLoader,
             ParticipantList,
@@ -66,6 +61,7 @@
                 event: {
                     participants: [],
                 },
+                initialEvent: {},
                 loading: false,
             };
         },
@@ -73,14 +69,31 @@
             if (this.$route.meta.formMode === 'edit') {
                 this.fetchEvent(this.$route.params.id);
             }
+
             this.$emit('formCreated');
         },
+        computed: {
+            editing () {
+                return this.$store.state.editing;
+            },
+            validating () {
+                return this.$store.state.validating;
+            },
+            canceling () {
+                return this.$store.state.canceling;
+            },
+        },
         watch: {
-            submitForm: function () {
-                if (this.submitForm) {
+            validating: function () {
+                if (this.validating) {
                     this.onSubmit();
                 }
-            }
+            },
+            canceling: function () {
+                if (this.canceling) {
+                    this.onCancel();
+                }
+            },
         },
         methods: {
             fetchEvent(id) {
@@ -89,6 +102,8 @@
                 this.$http.get('/api/events/' + id)
                     .then( response => {
                         this.event = response.data;
+
+                        this.initialEvent = Object.assign({}, this.event);
                     })
                     .catch( error => {
                         if (error.response.status === 401) return;
@@ -110,6 +125,16 @@
                     ? this.create()
                     : this.update();
             },
+            onCancel()
+            {
+                this.event = Object.assign({}, this.initialEvent);
+
+                if (this.$route.meta.formMode !== 'create') {
+                    this.$store.state.editing = false;
+                }
+
+                this.$store.commit('formCanceled');
+            },
             create()
             {
                 const event = this.event;
@@ -124,7 +149,7 @@
                 )
                 .then( () => {
                     this.notify('success', 'L\'événement a bien été créé');
-                    this.$emit('formValidated');
+                    this.$store.commit('formValidated');
 
                     this.$router.push({ name: 'eventList' });
                 })
@@ -132,7 +157,7 @@
                     if (error.response.status === 401) return;
 
                     this.notify('error', 'Impossible de créer l\'événement');
-                    this.$emit('formValidated', true);
+                    this.$store.commit('formValidated', true);
                 });
             },
             update()
@@ -149,11 +174,11 @@
                 )
                 .then( () => {
                     this.notify('success', 'L\'événement a bien été modifié');
-                    this.$emit('formValidated');
+                    this.$store.commit('formValidated');
                 })
                 .catch( () => {
                     this.notify('error', 'Impossible de modifier l\'événement');
-                    this.$emit('formValidated', true);
+                    this.$store.commit('formValidated', true);
                 });
             },
             deleteParticipant(participantToDelete) {

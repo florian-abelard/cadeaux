@@ -106,9 +106,7 @@ class Idea implements TimestampableInterface
     private $recipients;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Assert\Length(max=255)
+     * @ORM\Column(type="text", nullable=true)
      *
      * @Groups({
      *     "idea:write",

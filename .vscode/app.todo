@@ -18,7 +18,7 @@ issues :
 
 refactor :
     - merger création et édition @high
-    - revoir gestion submitForm depuis le parent vers l'enfant
+    - revoir gestion validateForm depuis le parent vers l'enfant
     - refactor: sortir les annotations ORM des entitées @low
     - refactor(vuejs): https://router.vuejs.org/guide/essentials/passing-props.html @pending
 

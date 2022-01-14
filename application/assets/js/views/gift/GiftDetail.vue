@@ -14,12 +14,12 @@
                     label="Libellé"
                     required
                     :rules="[value => !!value || 'Le libellé est obligatoire']"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <v-autocomplete
-                    :disabled="!editing"
+                    :readonly="!editing"
                     v-model="gift.recipientsUri"
                     :items="recipients"
                     item-text="name"
@@ -37,21 +37,21 @@
                 <v-text-field
                     v-model="gift.eventYear"
                     label="Année de l'évènement"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <v-text-field
                     v-model="gift.price.value"
                     label="Prix"
-                    :disabled="!editing"
+                    :readonly="!editing"
                 >
                 </v-text-field>
 
                 <v-textarea
                     v-model="gift.note"
                     label="Note"
-                    :disabled="!editing"
+                    :readonly="!editing"
                     rows="3"
                 ></v-textarea>
 
@@ -74,16 +74,15 @@
 
     export default {
         name: "GiftDetail",
-        props: {
-            editing: false,
-            submitForm: false
-        },
         components: {
             FormSkeletonLoader,
         },
         data() {
             return {
                 gift: {
+                    price: {}
+                },
+                initialGift: {
                     price: {}
                 },
                 recipients: [],
@@ -95,15 +94,33 @@
             if (this.$route.meta.formMode === 'edit') {
                 this.fetchGift(this.$route.params.id);
             }
+
             this.fetchRecipients();
+
             this.$emit('formCreated');
         },
+        computed: {
+            editing () {
+                return this.$store.state.editing;
+            },
+            validating () {
+                return this.$store.state.validating;
+            },
+            canceling () {
+                return this.$store.state.canceling;
+            },
+        },
         watch: {
-            submitForm: function () {
-                if (this.submitForm) {
+            validating: function () {
+                if (this.validating) {
                     this.onSubmit();
                 }
-            }
+            },
+            canceling: function () {
+                if (this.canceling) {
+                    this.onCancel();
+                }
+            },
         },
         methods: {
             fetchGift(id) {
@@ -113,6 +130,9 @@
                     .then( response => {
                         this.gift = response.data;
                         this.gift.recipientsUri = this.gift.recipients.map( element => element['@id'] );
+
+                        this.initialGift = Object.assign({}, this.gift);
+                        this.initialGift.price = Object.assign({}, this.gift.price);
                     })
                     .catch( error => {
                         if (error.response.status === 401) return;
@@ -146,6 +166,17 @@
                     ? this.create()
                     : this.update();
             },
+            onCancel()
+            {
+                this.gift = Object.assign({}, this.initialGift);
+                this.gift.price = Object.assign({}, this.initialGift.price);
+
+                if (this.$route.meta.formMode !== 'create') {
+                    this.$store.state.editing = false;
+                }
+
+                this.$store.commit('formCanceled');
+            },
             create()
             {
                 const gift = this.gift;
@@ -164,7 +195,7 @@
                 )
                 .then( () => {
                     this.notify('success', 'Le cadeau a bien été créé');
-                    this.$emit('formValidated');
+                    this.$store.commit('formValidated');
 
                     this.$router.push({ name: 'giftList' });
                 })
@@ -172,7 +203,7 @@
                     if (error.response.status === 401) return;
 
                     this.notify('error', 'Impossible de créer le cadeau');
-                    this.$emit('formValidated', true);
+                    this.$store.commit('formValidated', true);
                 });
             },
             update()
@@ -193,11 +224,11 @@
                 )
                 .then( () => {
                     this.notify('success', 'Le cadeau a bien été modifié');
-                    this.$emit('formValidated');
+                    this.$store.commit('formValidated');
                 })
                 .catch( () => {
                     this.notify('error', 'Impossible de modifier le cadeau');
-                    this.$emit('formValidated', true);
+                    this.$store.commit('formValidated', true);
                 });
             },
         }

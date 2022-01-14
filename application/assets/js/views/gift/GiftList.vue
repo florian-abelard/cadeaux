@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0">
 
-        <v-navigation-drawer v-model="showFilter" fixed right width=300 temporary hide-overlay>
+        <v-navigation-drawer v-model="showFilterDrawer" fixed right width=300 temporary hide-overlay>
 
             <div class="drawer-container">
 
@@ -143,7 +143,9 @@
 
     export default {
         name: "GiftList",
-        props: ['showMainFilter'],
+        props: {
+            showFilterDrawer: Boolean
+        },
         mixins: [filterMixin],
         components: {
             ListSkeletonLoader
@@ -155,7 +157,6 @@
                 recipients: [],
                 years: [],
                 filters: {},
-                showFilter: this.showMainFilter,
                 loading: false,
                 recipientsSearch: '',
             };
@@ -170,19 +171,9 @@
             filters: {
                 handler: function(value) {
                     this.fetchGifts();
-                    this.$store.commit('saveFilters', value);
+                    this.$store.commit('updateFilters', value);
                 },
                 deep: true
-            },
-            showMainFilter: {
-                handler(value) {
-                    this.showFilter = value;
-                },
-            },
-            showFilter: {
-                handler(value) {
-                    this.$emit('showMainFilterUpdated', value);
-                },
             },
         },
         methods: {

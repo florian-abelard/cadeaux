@@ -18,15 +18,19 @@
                 <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
 
-            <v-btn icon v-if="showEditButton()" @click="editing = true">
+            <v-btn icon v-if="showEditButton()" @click="$store.state.editing = true">
                 <v-icon>mdi-square-edit-outline</v-icon>
             </v-btn>
 
-            <v-btn icon v-if="showValidateButton()" @click="submitForm = true">
+            <v-btn icon v-if="showCancelButton()" @click="$store.commit('cancelForm')">
+                <v-icon>mdi-close</v-icon>
+            </v-btn>
+
+            <v-btn icon v-if="showValidateButton()" @click="$store.commit('validateForm')">
                 <v-icon>mdi-check</v-icon>
             </v-btn>
 
-            <v-btn icon v-if="['ideaList', 'giftList'].includes($route.name)" @click.stop="showMainFilter = !showMainFilter">
+            <v-btn icon v-if="showFilterButton()" @click.stop="showFilterDrawer = !showFilterDrawer">
                 <v-icon>mdi-filter-outline</v-icon>
             </v-btn>
 
@@ -100,13 +104,9 @@
             <v-container d-flex fluid>
 
                 <router-view
-                    :editing="editing"
-                    :showMainFilter="showMainFilter"
-                    :submitForm="submitForm"
+                    :showFilterDrawer="showFilterDrawer"
                     v-on:authenticationSuccess="onAuthenticationSuccess"
-                    v-on:formValidated="onFormValidated"
                     v-on:formCreated="onFormCreated"
-                    v-on:showMainFilterUpdated="onShowMainFilterUpdated"
                 ></router-view>
 
             </v-container>
@@ -126,9 +126,7 @@
         data: () => ({
             authenticated: false,
             showMenu: false,
-            showMainFilter: false,
-            editing: false,
-            submitForm: false
+            showFilterDrawer: false,
         }),
         mounted() {
             this.authenticated = window.authenticated;
@@ -137,31 +135,37 @@
                 this.$router.push({ name: 'login' });
             }
         },
+        computed: {
+            editing () {
+                return this.$store.state.editing;
+            }
+        },
         methods: {
             onAuthenticationSuccess() {
                 this.authenticated = true;
             },
-            onFormValidated(error = false) {
-                if (!error) {
-                    this.editing = false;
-                }
-                this.submitForm = false;
-            },
             onFormCreated() {
                 if (this.$route.meta.formMode === 'create') {
-                    this.editing = true;
+                    this.$store.state.editing = true;
                 } else {
-                    this.editing = false;
+                    this.$store.state.editing = false;
                 }
-            },
-            onShowMainFilterUpdated(value) {
-                this.showMainFilter = value;
             },
             showBackButton() {
                 return this.$route.meta.showBackButton;
             },
             showEditButton() {
                 if (this.$route.meta.formMode === 'edit' && !this.editing) {
+                    return true;
+                }
+
+                return false;
+            },
+            showCancelButton() {
+                if (this.$route.meta.formMode === 'create') {
+                    return true;
+                }
+                if (this.$route.meta.formMode === 'edit' && this.editing) {
                     return true;
                 }
 
