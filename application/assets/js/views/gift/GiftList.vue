@@ -171,7 +171,7 @@
             filters: {
                 handler: function(value) {
                     this.fetchGifts();
-                    this.$store.commit('saveFilters', value);
+                    this.$store.commit('updateFilters', value);
                 },
                 deep: true
             },

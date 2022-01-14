@@ -153,7 +153,7 @@
             filters: {
                 handler: function(value) {
                     this.fetchIdeas();
-                    this.$store.commit('saveFilters', value);
+                    this.$store.commit('updateFilters', value);
                 },
                 deep: true
             },
