@@ -89,10 +89,6 @@
 
     export default {
         name: "IdeaDetail",
-        props: {
-            editing: false,
-            validateForm: false
-        },
         components: {
             CreateGiftFromIdea,
             FormSkeletonLoader,
@@ -100,6 +96,9 @@
         data() {
             return {
                 idea: {
+                    price: {}
+                },
+                initialIdea: {
                     price: {}
                 },
                 recipients: [],
@@ -116,15 +115,33 @@
             if (this.$route.meta.formMode === 'edit') {
                 this.fetchIdea(this.$route.params.id);
             }
+
             this.fetchRecipients();
+
             this.$emit('formCreated');
         },
+        computed: {
+            editing () {
+                return this.$store.state.editing;
+            },
+            validating () {
+                return this.$store.state.validating;
+            },
+            canceling () {
+                return this.$store.state.canceling;
+            },
+        },
         watch: {
-            validateForm: function () {
-                if (this.validateForm) {
+            validating: function () {
+                if (this.validating) {
                     this.onSubmit();
                 }
-            }
+            },
+            canceling: function () {
+                if (this.canceling) {
+                    this.onCancel();
+                }
+            },
         },
         methods: {
             fetchIdea(id) {
@@ -134,6 +151,9 @@
                     .then( response => {
                         this.idea = response.data;
                         this.idea.recipientsUri = this.idea.recipients.map( element => element['@id'] );
+
+                        this.initialIdea = Object.assign({}, this.idea);
+                        this.initialIdea.price = Object.assign({}, this.idea.price);
                     })
                     .catch( error => {
                         if (error.response.status === 401) return;
@@ -167,6 +187,17 @@
                     ? this.create()
                     : this.update();
             },
+            onCancel()
+            {
+                this.idea = Object.assign({}, this.initialIdea);
+                this.idea.price = Object.assign({}, this.initialIdea.price);
+
+                if (this.$route.meta.formMode !== 'create') {
+                    this.$store.state.editing = false;
+                }
+
+                this.$store.commit('formCanceled');
+            },
             create()
             {
                 const idea = this.idea;
@@ -184,7 +215,7 @@
                 )
                 .then( () => {
                     this.notify('success', "L'idée cadeau a bien été créée");
-                    this.$emit('formValidated');
+                    this.$store.commit('formValidated');
 
                     this.$router.push({ name: 'ideaList' });
                 })
@@ -192,7 +223,7 @@
                     if (error.response.status === 401) return;
 
                     this.notify('error', "Impossible de créer l'idée cadeau");
-                    this.$emit('formValidated', true);
+                    this.$store.commit('formValidated', true);
                 });
             },
             update()
@@ -212,13 +243,13 @@
                 )
                 .then( () => {
                     this.notify('success', "L'idée cadeau a bien été modifiée");
-                    this.$emit('formValidated');
+                    this.$store.commit('formValidated');
                 })
                 .catch( error => {
                     if (error.response.status === 401) return;
 
                     this.notify('error', "Impossible de modifier l'idée cadeau");
-                    this.$emit('formValidated', true);
+                    this.$store.commit('formValidated', true);
                 });
             },
             createGift(gift)
