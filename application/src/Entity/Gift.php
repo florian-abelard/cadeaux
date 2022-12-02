@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      normalizationContext={"groups"={"gift:read"}},
  *      denormalizationContext={"groups"={"gift:write"}},
  *      attributes={
- *          "order"={"updatedAt": "DESC", "id": "ASC"}
+ *          "order"={"eventYear": "DESC", "updatedAt": "DESC"}
  *      }
  * )
  *
