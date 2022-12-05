@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0">
 
-        <v-navigation-drawer v-model="showFilterDrawer" fixed right width=300 temporary hide-overlay>
+        <v-navigation-drawer v-model="showFilterDrawer" fixed right width=300 temporary overlay-opacity="0.2">
 
             <div class="drawer-container">
 
@@ -129,7 +129,6 @@
 
     export default {
         name: "IdeaList",
-        props: ['showFilterDrawer'],
         mixins: [filterMixin],
         components: {
             ListSkeletonLoader
@@ -148,6 +147,16 @@
             this.initializeFilters();
             this.fetchGroups();
             this.fetchRecipients();
+        },
+        computed: {
+            showFilterDrawer: {
+                get() {
+                    return this.$store.state.filtersVisible;
+                },
+                set(value) {
+                    this.$store.commit('updateFiltersVisibility', value);
+                }
+            }
         },
         watch: {
             filters: {
