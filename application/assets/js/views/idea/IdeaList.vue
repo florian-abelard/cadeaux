@@ -129,7 +129,6 @@
 
     export default {
         name: "IdeaList",
-        props: ['showFilterDrawer'],
         mixins: [filterMixin],
         components: {
             ListSkeletonLoader
@@ -148,6 +147,16 @@
             this.initializeFilters();
             this.fetchGroups();
             this.fetchRecipients();
+        },
+        computed: {
+            showFilterDrawer: {
+                get() {
+                    return this.$store.state.filtersVisible;
+                },
+                set(value) {
+                    this.$store.commit('updateFiltersVisibility', value);
+                }
+            }
         },
         watch: {
             filters: {

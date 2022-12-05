@@ -30,7 +30,7 @@
                 <v-icon>mdi-check</v-icon>
             </v-btn>
 
-            <v-btn icon v-if="showFilterButton()" @click.stop="showFilterDrawer = !showFilterDrawer">
+            <v-btn icon v-if="showFilterButton()" @click.stop="$store.commit('toggleFiltersVisibility')">
                 <v-icon>mdi-filter-outline</v-icon>
             </v-btn>
 
@@ -104,7 +104,6 @@
             <v-container d-flex fluid>
 
                 <router-view
-                    :showFilterDrawer="showFilterDrawer"
                     v-on:authenticationSuccess="onAuthenticationSuccess"
                     v-on:formCreated="onFormCreated"
                 ></router-view>
@@ -126,7 +125,6 @@
         data: () => ({
             authenticated: false,
             showMenu: false,
-            showFilterDrawer: false,
         }),
         mounted() {
             this.authenticated = window.authenticated;

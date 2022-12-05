@@ -143,9 +143,6 @@
 
     export default {
         name: "GiftList",
-        props: {
-            showFilterDrawer: Boolean
-        },
         mixins: [filterMixin],
         components: {
             ListSkeletonLoader
@@ -166,6 +163,16 @@
             this.fetchGroups();
             this.fetchRecipients();
             this.initializeEventYears();
+        },
+        computed: {
+            showFilterDrawer: {
+                get() {
+                    return this.$store.state.filtersVisible;
+                },
+                set(value) {
+                    this.$store.commit('updateFiltersVisibility', value);
+                }
+            }
         },
         watch: {
             filters: {
