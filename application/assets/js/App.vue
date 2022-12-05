@@ -38,7 +38,7 @@
 
         <v-content>
 
-            <v-navigation-drawer v-model="showMenu" temporary hide-overlay fixed left>
+            <v-navigation-drawer v-model="showMenu" temporary overlay-opacity="0.2" fixed left>
 
                 <div class="drawer-container">
 

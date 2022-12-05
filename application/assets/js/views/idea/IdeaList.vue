@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0">
 
-        <v-navigation-drawer v-model="showFilterDrawer" fixed right width=300 temporary hide-overlay>
+        <v-navigation-drawer v-model="showFilterDrawer" fixed right width=300 temporary overlay-opacity="0.2">
 
             <div class="drawer-container">
 
