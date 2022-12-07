@@ -13,7 +13,7 @@
                 </v-card-title>
 
                 <v-card-text>
-                    <p>Pouet</p>
+                    <p>Vous pouvez sélectionner toutes les personnes d'un groupe ou seulement quelques destinataires.</p>
 
                     <v-autocomplete
                         v-model="groupsToAdd"
