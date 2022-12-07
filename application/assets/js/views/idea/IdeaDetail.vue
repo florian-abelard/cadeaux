@@ -32,9 +32,9 @@
                     label="Destinataires"
                     multiple
                     auto-select-first
-                    :menu-props="{ closeOnContentClick: true }"
+                    :menu-props="{ closeOnContentClick: true, closeOnClick: true }"
                 ></v-autocomplete>
-
+test2
                 <v-text-field
                     v-model="idea.price.value"
                     label="Prix"

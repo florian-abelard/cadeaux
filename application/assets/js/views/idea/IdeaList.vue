@@ -44,7 +44,7 @@
                                 multiple
                                 clearable
                                 auto-select-first
-                                :menu-props="{ closeOnContentClick: true }"
+                                :menu-props="{ closeOnContentClick: true, closeOnClick: true }"
                             ></v-autocomplete>
 
                             <v-container class="mt-3 pa-0 d-flex justify-center">
