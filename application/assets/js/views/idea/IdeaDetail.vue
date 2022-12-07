@@ -32,7 +32,7 @@
                     label="Destinataires"
                     multiple
                     auto-select-first
-                    menu-props="closeOnContentClick"
+                    :menu-props="{ closeOnContentClick: true, closeOnClick: true }"
                 ></v-autocomplete>
 test2
                 <v-text-field

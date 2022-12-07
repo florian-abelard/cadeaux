@@ -27,7 +27,7 @@
                         label="Groupes"
                         multiple
                         auto-select-first
-                        :menu-props="{ closeOnContentClick: true }"
+                        :menu-props="{ closeOnContentClick: true, closeOnClick: true }"
                     ></v-autocomplete>
 
                     <v-autocomplete
@@ -42,7 +42,7 @@
                         label="Participants"
                         multiple
                         auto-select-first
-                        :menu-props="{ closeOnContentClick: true }"
+                        :menu-props="{ closeOnContentClick: true, closeOnClick: true }"
                     ></v-autocomplete>
                 </v-card-text>
 
