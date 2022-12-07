@@ -31,9 +31,9 @@
                     label="Destinataires"
                     multiple
                     auto-select-first
-                    :menu-props="{ closeOnContentClick: true }"
+                    :menu-props="{ closeOnContentClick: true, closeOnClick: true }"
                 ></v-autocomplete>
-
+test3
                 <v-text-field
                     v-model="gift.eventYear"
                     label="Année de l'évènement"
