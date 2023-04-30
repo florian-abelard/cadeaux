@@ -45,7 +45,7 @@ jobs:
           npm run build
 
       - name: Deploy to the staging server
-        uses: AEnterprise/rsync-deploy@v1.0
+        uses: tohn/rsync-deploy@v1.1.1
         env:
           DEPLOY_KEY: ${{ secrets.SERVER_STAGING_SSH_PRIVATE_KEY }}
           SERVER_IP: ${DEPLOY_REMOTE_HOST}
